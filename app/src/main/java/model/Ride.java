@@ -6,6 +6,7 @@ package model;
 
 public class Ride {
     public int id;
+    public int userId; // Todo: check if firebase auth uses string or int id's
     public int startDistance;
     public int endDistance;
 }

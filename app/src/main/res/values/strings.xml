@@ -2,7 +2,7 @@
     <string name="app_name">KiloNotes</string>
     <string name="reg_new_ride">Nieuwe rit registreren</string>
     <string name="start_distance_hint">Beginstand: </string>
-    <string name="end_distance_hint">Eindafstand: </string>
+    <string name="end_distance_hint">Eindstand: </string>
     <string name="btn_save">Opslaan</string>
     <string name="driven_km">Gereden kilometers: </string>
     <string name="amount_km">100 Km</string>
