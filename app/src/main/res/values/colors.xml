@@ -3,4 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="bg_def">#6779d3</color>
+    <color name="btn_def">#3f49a4</color>
+    <color name="txt_def">#e7e9f8</color>
+    <color name="bg_edit_txt">#FFF</color>
+    <color name="txt_edit_txt">#3f49a4</color>
+
 </resources>
