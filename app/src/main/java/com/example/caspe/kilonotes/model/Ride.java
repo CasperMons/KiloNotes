@@ -1,4 +1,4 @@
-package model;
+package com.example.caspe.kilonotes.model;
 
 /**
  * Created by caspe on 1-12-2017.

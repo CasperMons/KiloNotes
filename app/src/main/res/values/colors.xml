@@ -3,7 +3,7 @@
     <!-- Navigationbar, Actionbar, Default Accents-->
     <color name="colorPrimaryDark">#1c3041</color>
     <color name="colorPrimary">#243d54</color>
-    <color name="colorAccent">#FFFFA930</color>
+    <color name="colorAccent">#FFA930</color>
 
     <!-- Backgrounds -->
     <color name="bg_def">#001711</color>
