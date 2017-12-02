@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!-- Navigationbar, Actionbar, Default Accents-->
+    <color name="colorPrimaryDark">#1c3041</color>
+    <color name="colorPrimary">#243d54</color>
+    <color name="colorAccent">#FFFFA930</color>
 
-    <color name="bg_def">#6779d3</color>
-    <color name="btn_def">#3f49a4</color>
-    <color name="txt_def">#e7e9f8</color>
+    <!-- Backgrounds -->
+    <color name="bg_def">#001711</color>
     <color name="bg_edit_txt">#FFF</color>
-    <color name="txt_edit_txt">#3f49a4</color>
+    <color name="inner_gradient">#243d54</color>    <!-- Gradient -->
+    <color name="outer_gradient">#10161d</color>    <!-- Gradient -->
+
+    <!-- Button -->
+    <color name="btn_def">#ffa930</color>
+    <color name="btn_txt_def">#10161d</color>
+
+    <!-- Texts -->
+    <color name="txt_def">#e7e9f8</color>
+    <color name="title_def">#ffa930</color>
+    <color name="txt_edit_txt">#1c3041</color>
+    <color name="txt_hint">#8da5ba</color>
+
+
+
 
 </resources>

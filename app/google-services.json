@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "355506333197-888vekk2oqhd79t0uks04g5eu6n8linm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.caspe.kilonotes",
+            "certificate_hash": "456ae8749eb170bf1122396ebf1993a7183032e3"
+          }
+        },
+        {
           "client_id": "355506333197-gsvvlkrl26sv1ukacbek2pc4tcg4m6si.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
