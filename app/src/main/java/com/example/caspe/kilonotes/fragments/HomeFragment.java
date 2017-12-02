@@ -1,5 +1,6 @@
 package com.example.caspe.kilonotes.fragments;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,12 +9,21 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.caspe.kilonotes.R;
 import com.example.caspe.kilonotes.activities.LoginActivity;
 import com.example.caspe.kilonotes.activities.MainActivity;
+import com.example.caspe.kilonotes.model.Ride;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class HomeFragment extends Fragment {
@@ -21,6 +31,7 @@ public class HomeFragment extends Fragment {
     TextView drivenDistance;
     EditText startDistance;
     EditText endDistance;
+    Button saveBtn;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -51,8 +62,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int i, int i1, int i2) {
-                if(!s.equals(""))
-                {
+                if (!s.equals("")) {
                     setDrivenKm();
                 }
             }
@@ -71,8 +81,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int i, int i1, int i2) {
-                if(!s.equals(""))
-                {
+                if (!s.equals("")) {
                     setDrivenKm();
                 }
 
@@ -84,28 +93,74 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        saveBtn.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(checkFieldsFilled() && getDrivenDistance() > 0){
+                    saveAction();
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage(R.string.alert_message_no_km)
+                            .setTitle(R.string.alert_title_cant_save);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }
+        });
+
         return view;
     }
 
-    public void declareLayoutElements(View view){
-        drivenDistance = (TextView)view.findViewById(R.id.driven_km_txt);
-        startDistance = (EditText)view.findViewById(R.id.edit_start_dist);
-        endDistance = (EditText)view.findViewById(R.id.edit_end_dist);
+    public void declareLayoutElements(View view) {
+        drivenDistance = (TextView) view.findViewById(R.id.driven_km_txt);
+        startDistance = (EditText) view.findViewById(R.id.edit_start_dist);
+        endDistance = (EditText) view.findViewById(R.id.edit_end_dist);
+        saveBtn = (Button)view.findViewById(R.id.save_btn);
     }
 
-    public void setDrivenKm(){
-        if(!(endDistance.getText().toString().matches(""))&& !(startDistance.getText().toString().matches(""))) {
+    public void setDrivenKm() {
+        if (checkFieldsFilled()) {
             int startKm = Integer.valueOf(startDistance.getText().toString());
             int endKm = Integer.valueOf(endDistance.getText().toString());
 
             int drivenKm = endKm - startKm;
-            if(drivenKm > 0){
+            if (drivenKm > 0) {
                 drivenDistance.setText(Integer.toString(drivenKm) + " KM");
             }
         }
     }
 
-    public void saveAction(View view){
+    public int getDrivenDistance(){
+        if(checkFieldsFilled()){
+            return Integer.parseInt(endDistance.getText().toString()) - Integer.parseInt(startDistance.getText().toString());
+        }else{
+            return 0;
+        }
+    }
 
+    public boolean checkFieldsFilled(){
+        if (!(endDistance.getText().toString().matches("")) && !(startDistance.getText().toString().matches(""))) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void saveAction() {
+        FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference reference = fbDatabase.getReference();
+
+        Ride newRide = new Ride();
+        newRide.userName = getCurrentUser();
+        newRide.startDistance = Integer.parseInt(startDistance.getText().toString());
+        newRide.endDistance = Integer.parseInt(endDistance.getText().toString());
+        newRide.date = new Date();
+
+        reference.push().setValue(newRide);
+    }
+
+    public String getCurrentUser() {
+        String testUser = "testUser";
+        return testUser;
     }
 }

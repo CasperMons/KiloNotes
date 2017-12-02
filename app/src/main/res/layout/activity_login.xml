@@ -37,7 +37,6 @@
             android:backgroundTint="@color/bg_edit_txt"
             android:gravity="center_horizontal|center_vertical"
             android:hint="@string/edit_username"
-            android:inputType="number"
             android:textColor="@color/txt_edit_txt"
             android:textColorHint="@color/txt_hint"
             android:textSize="20dp" />
@@ -52,7 +51,7 @@
             android:backgroundTint="@color/bg_edit_txt"
             android:gravity="center_horizontal|center_vertical"
             android:hint="@string/edit_password"
-            android:inputType="number"
+            android:inputType="textPassword"
             android:textColorHint="@color/txt_hint"
             android:textSize="20dp" />
 

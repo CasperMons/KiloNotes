@@ -7,8 +7,7 @@ import java.util.Date;
  */
 
 public class Ride {
-    public int id;
-    public int userId; // Todo: check if firebase auth uses string or int id's
+   public String userName; // Todo: check if firebase auth uses string or int id's
     public int startDistance;
     public int endDistance;
     public Date date;

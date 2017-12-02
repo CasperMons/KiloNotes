@@ -81,7 +81,6 @@
             android:layout_weight="10"
             android:background="@drawable/rounded_corners"
             android:backgroundTint="@color/btn_def"
-            android:onClick="saveAction"
             android:text="@string/btn_save"
             android:textColor="@color/btn_txt_def"
             android:textSize="18dp"

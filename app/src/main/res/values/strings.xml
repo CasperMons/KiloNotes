@@ -21,4 +21,8 @@
     <string name="edit_password">Wachtwoord: </string>
     <string name="start_distance_hint">Beginstand: </string>
     <string name="end_distance_hint">Eindstand: </string>
+    
+    <!-- Alert dialogs -->
+    <string name="alert_message_no_km">Het aantal gereden kilometers kon niet berekend worden. Controleer of beide velden juist zijn gevuld en probeer het opnieuw</string>
+    <string name="alert_title_cant_save">Kan niet opslaan</string>
 </resources>
