@@ -1,16 +1,19 @@
 package com.example.caspe.kilonotes.fragments;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ import com.example.caspe.kilonotes.R;
 import com.example.caspe.kilonotes.activities.LoginActivity;
 import com.example.caspe.kilonotes.activities.MainActivity;
 import com.example.caspe.kilonotes.model.Ride;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,6 +36,7 @@ public class HomeFragment extends Fragment {
     EditText startDistance;
     EditText endDistance;
     Button saveBtn;
+    ProgressBar progressBar;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -93,15 +98,26 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        saveBtn.setOnClickListener(new Button.OnClickListener(){
+        saveBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkFieldsFilled() && getDrivenDistance() > 0){
-                    saveAction();
-                }else{
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setMessage(R.string.alert_message_no_km)
-                            .setTitle(R.string.alert_title_cant_save);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                if (checkFieldsFilled() && getDrivenDistance() > 0) {
+                            builder.setTitle(R.string.alert_title_ask_save)
+                            .setMessage(R.string.alert_message_ask_save)
+                            .setIcon(R.drawable.kilo_note_logo_transparent)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    progressBar.setVisibility(View.VISIBLE);
+                                    saveAction();
+                                }})
+                            .setNegativeButton(android.R.string.no, null).show();
+                } else {
+
+                    builder.setTitle(R.string.alert_title_cant_save)
+                            .setMessage(R.string.alert_message_no_km)
+                            .setIcon(R.drawable.kilo_note_logo_red);
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
@@ -115,7 +131,8 @@ public class HomeFragment extends Fragment {
         drivenDistance = (TextView) view.findViewById(R.id.driven_km_txt);
         startDistance = (EditText) view.findViewById(R.id.edit_start_dist);
         endDistance = (EditText) view.findViewById(R.id.edit_end_dist);
-        saveBtn = (Button)view.findViewById(R.id.save_btn);
+        saveBtn = (Button) view.findViewById(R.id.save_btn);
+        progressBar = (ProgressBar)view.findViewById(R.id.save_progress);
     }
 
     public void setDrivenKm() {
@@ -130,18 +147,18 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    public int getDrivenDistance(){
-        if(checkFieldsFilled()){
+    public int getDrivenDistance() {
+        if (checkFieldsFilled()) {
             return Integer.parseInt(endDistance.getText().toString()) - Integer.parseInt(startDistance.getText().toString());
-        }else{
+        } else {
             return 0;
         }
     }
 
-    public boolean checkFieldsFilled(){
+    public boolean checkFieldsFilled() {
         if (!(endDistance.getText().toString().matches("")) && !(startDistance.getText().toString().matches(""))) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -156,7 +173,27 @@ public class HomeFragment extends Fragment {
         newRide.endDistance = Integer.parseInt(endDistance.getText().toString());
         newRide.date = new Date();
 
-        reference.push().setValue(newRide);
+        reference.push().setValue(newRide, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError error, DatabaseReference ref) {
+                AlertDialog.Builder saveResultDialogBuilder = new AlertDialog.Builder(getActivity());
+                if (error == null) {
+                    saveResultDialogBuilder.setTitle(R.string.alert_success)
+                            .setMessage(R.string.alert_message_ride_saved)
+                            .setIcon(R.drawable.kilo_note_logo_green);
+
+                } else {
+                    saveResultDialogBuilder.setTitle(R.string.alert_title_fail)
+                            .setMessage(R.string.alert_message_fail)
+                            .setIcon(R.drawable.kilo_note_logo_red);
+                    Log.e("SaveRide: ", "Error: " + error);
+                }
+
+                AlertDialog dialog = saveResultDialogBuilder.create();
+                progressBar.setVisibility(View.INVISIBLE);
+                dialog.show();
+            }
+        });
     }
 
     public String getCurrentUser() {

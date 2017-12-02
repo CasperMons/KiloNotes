@@ -21,8 +21,14 @@
     <string name="edit_password">Wachtwoord: </string>
     <string name="start_distance_hint">Beginstand: </string>
     <string name="end_distance_hint">Eindstand: </string>
-    
+
     <!-- Alert dialogs -->
     <string name="alert_message_no_km">Het aantal gereden kilometers kon niet berekend worden. Controleer of beide velden juist zijn gevuld en probeer het opnieuw</string>
     <string name="alert_title_cant_save">Kan niet opslaan</string>
+    <string name="alert_message_ride_saved">De nieuwe rit is opgeslagen.</string>
+    <string name="alert_success">Succes!</string>
+    <string name="alert_title_fail">Oeps! </string>
+    <string name="alert_message_fail">Er is iets fout gegaan. Probeer het later opnieuw of neem contact op met de provider van deze app.</string>
+    <string name="alert_title_ask_save">Opslaan?</string>
+    <string name="alert_message_ask_save">Weet u zeker dat u deze rit wilt opslaan?</string>
 </resources>
