@@ -1,23 +1,24 @@
 <resources>
+    <!-- Titles -->
     <string name="app_name">KiloNotes</string>
     <string name="reg_new_ride">Nieuwe rit registreren</string>
-    <string name="start_distance_hint">Beginstand: </string>
-    <string name="end_distance_hint">Eindstand: </string>
-    <string name="btn_save">Opslaan</string>
+    <string name="title_activity_main">Kilo Notes</string>
+    <string name="tab_title_new_ride">Niewe Rit</string>
+    <string name="tab_title_history">Geschiedenis</string>
+
     <string name="driven_km">Gereden kilometers: </string>
     <string name="amount_km">0 KM</string>
-    <string name="title_activity_login">Inloggen</string>
+    <string name="title_login">Inloggen</string>
+    <string name="action_logout">Uitloggen</string>
+    <string name="section_format">no section format</string>
 
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <!-- Button texts-->
+    <string name="btn_login">Log in</string>
+    <string name="btn_save">Opslaan</string>
+
+    <!-- EditText hints -->
+    <string name="edit_username">Gebruikersnaam: </string>
+    <string name="edit_password">Wachtwoord: </string>
+    <string name="start_distance_hint">Beginstand: </string>
+    <string name="end_distance_hint">Eindstand: </string>
 </resources>
