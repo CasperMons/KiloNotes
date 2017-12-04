@@ -37,6 +37,8 @@ public class HomeFragment extends Fragment {
     EditText endDistance;
     Button saveBtn;
     ProgressBar progressBar;
+    FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 
     public HomeFragment() {
         // Required empty public constructor
@@ -103,7 +105,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 if (checkFieldsFilled() && getDrivenDistance() > 0) {
-                            builder.setTitle(R.string.alert_title_ask_save)
+                    builder.setTitle(R.string.alert_title_ask_save)
                             .setMessage(R.string.alert_message_ask_save)
                             .setIcon(R.drawable.kilo_note_logo_transparent)
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -111,7 +113,8 @@ public class HomeFragment extends Fragment {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     progressBar.setVisibility(View.VISIBLE);
                                     saveAction();
-                                }})
+                                }
+                            })
                             .setNegativeButton(android.R.string.no, null).show();
                 } else {
 
@@ -132,7 +135,7 @@ public class HomeFragment extends Fragment {
         startDistance = (EditText) view.findViewById(R.id.edit_start_dist);
         endDistance = (EditText) view.findViewById(R.id.edit_end_dist);
         saveBtn = (Button) view.findViewById(R.id.save_btn);
-        progressBar = (ProgressBar)view.findViewById(R.id.save_progress);
+        progressBar = (ProgressBar) view.findViewById(R.id.save_progress);
     }
 
     public void setDrivenKm() {
@@ -164,16 +167,17 @@ public class HomeFragment extends Fragment {
     }
 
     public void saveAction() {
-        FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = fbDatabase.getReference();
-
+        // TODO: also write data offline
         Ride newRide = new Ride();
         newRide.userName = getCurrentUser();
         newRide.startDistance = Integer.parseInt(startDistance.getText().toString());
         newRide.endDistance = Integer.parseInt(endDistance.getText().toString());
-        newRide.date = new Date();
+        newRide.date = dateFormat.format(new Date());
 
-        reference.push().setValue(newRide, new DatabaseReference.CompletionListener() {
+        DatabaseReference ref = fbDatabase.getReference("Rides");
+//        DatabaseReference rideRef = ref.child("Ride: " + newRide.date);
+
+        ref.push().setValue(newRide, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError error, DatabaseReference ref) {
                 AlertDialog.Builder saveResultDialogBuilder = new AlertDialog.Builder(getActivity());
