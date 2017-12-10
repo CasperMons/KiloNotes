@@ -8,7 +8,9 @@ import com.google.firebase.database.Exclude;
 
 public class Ride {
     public String userName; // Todo: check if firebase auth uses string or int id's
-    public int startDistance;
-    public int endDistance;
+    public long startDistance;
+    public long endDistance;
     public String date;
+
+
 }

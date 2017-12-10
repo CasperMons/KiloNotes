@@ -1,6 +1,7 @@
 package com.example.caspe.kilonotes.fragments;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +20,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-
 
 public class HistoryFragment extends Fragment {
     Button findBtn;
@@ -64,23 +64,28 @@ public class HistoryFragment extends Fragment {
     // Finding the single last inserted record
     // Here for testing purposes. Later to be implemented in home fragment to get endDistance
     public void find() {
-
-        final DatabaseReference ref = fbDatabase.getReference();
-        Query finalRecord = ref.child("Rides").orderByKey().limitToLast(1);
+        // Get a reference to our posts
+        final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference ref = fbDatabase.getReference("Rides");
+        Query finalRecord = ref.orderByKey().limitToLast(1);
+        final Ride lastRide = new Ride();
 
         finalRecord.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Ride lastRide = dataSnapshot.getValue(Ride.class);
-                Log.d("TEST", dataSnapshot.getValue().toString());
-                // TODO: map json object to Ride object properly
+                lastRide.startDistance = (long) dataSnapshot.child("startDistance").getValue();
+                lastRide.endDistance = (long) dataSnapshot.child("endDistance").getValue();
+                lastRide.userName = (String) dataSnapshot.child("userName").getValue();
+                lastRide.date = (String) dataSnapshot.child("date").getValue();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // TODO: do Exception handeling
+                // TODO: handle exceptions
             }
         });
+
+//        Log.e("RIDE", "Start: " + Long.toString(lastRide.startDistance) +", end: "+ Long.toString(lastRide.endDistance)  + ". Driver: "+ lastRide.userName + ", date: " +lastRide.date);
     }
 
 }
