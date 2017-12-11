@@ -2,7 +2,6 @@ package com.example.caspe.kilonotes.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -15,29 +14,32 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.caspe.kilonotes.R;
-import com.example.caspe.kilonotes.activities.LoginActivity;
-import com.example.caspe.kilonotes.activities.MainActivity;
 import com.example.caspe.kilonotes.model.Ride;
+import com.example.caspe.kilonotes.operations.FirebaseHelper;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
 public class HomeFragment extends Fragment {
-
+    // Declare Layout elements
     TextView drivenDistance;
     EditText startDistance;
     EditText endDistance;
     Button saveBtn;
     ProgressBar progressBar;
-    FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
+
+    final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
+    public Ride lastRide;
+
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 
     public HomeFragment() {
@@ -60,6 +62,9 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         declareLayoutElements(view);
+        progressBar.setVisibility(View.VISIBLE);
+        setLastRide();
+        progressBar.setVisibility(View.INVISIBLE);
 
         startDistance.addTextChangedListener(new TextWatcher() {
             @Override
@@ -175,7 +180,6 @@ public class HomeFragment extends Fragment {
         newRide.date = dateFormat.format(new Date());
 
         DatabaseReference ref = fbDatabase.getReference("Rides");
-//        DatabaseReference rideRef = ref.child("Ride: " + newRide.date);
 
         ref.push().setValue(newRide, new DatabaseReference.CompletionListener() {
             @Override
@@ -200,8 +204,28 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    // TODO : make fireBase auth and get current user
     public String getCurrentUser() {
         String testUser = "testUser";
         return testUser;
+    }
+
+    public void setLastRide() {
+        DatabaseReference ref = fbDatabase.getReference("Rides");
+        Query lastRecord = ref.limitToLast(1);
+        lastRecord.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    lastRide = ds.getValue(Ride.class);
+                }
+                startDistance.setText(Long.toString(lastRide.endDistance));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("GETLASTRIDE", "Error on getLastRide: " + databaseError);
+            }
+        });
     }
 }

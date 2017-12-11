@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.example.caspe.kilonotes.R;
 import com.example.caspe.kilonotes.model.Ride;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,11 +21,12 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HistoryFragment extends Fragment {
     Button findBtn;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-
     final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
 
 
@@ -64,28 +66,24 @@ public class HistoryFragment extends Fragment {
     // Finding the single last inserted record
     // Here for testing purposes. Later to be implemented in home fragment to get endDistance
     public void find() {
-        // Get a reference to our posts
-        final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference ref = fbDatabase.getReference("Rides");
-        Query finalRecord = ref.orderByKey().limitToLast(1);
-        final Ride lastRide = new Ride();
-
-        finalRecord.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                lastRide.startDistance = (long) dataSnapshot.child("startDistance").getValue();
-                lastRide.endDistance = (long) dataSnapshot.child("endDistance").getValue();
-                lastRide.userName = (String) dataSnapshot.child("userName").getValue();
-                lastRide.date = (String) dataSnapshot.child("date").getValue();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // TODO: handle exceptions
-            }
-        });
-
-//        Log.e("RIDE", "Start: " + Long.toString(lastRide.startDistance) +", end: "+ Long.toString(lastRide.endDistance)  + ". Driver: "+ lastRide.userName + ", date: " +lastRide.date);
+//        // Get a reference to our posts
+//        final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
+//        DatabaseReference ref = fbDatabase.getReference("Rides");
+//        Query lastRecord = ref.limitToLast(1);
+//
+//        lastRecord.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                    lastRide = ds.getValue(Ride.class);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 
 }
