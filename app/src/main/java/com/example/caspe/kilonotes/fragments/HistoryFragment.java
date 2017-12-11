@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.caspe.kilonotes.R;
 import com.example.caspe.kilonotes.model.Ride;
@@ -25,7 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryFragment extends Fragment {
-    Button findBtn;
+
+    ListView historyList;
+    private List<Ride> lstRides;
+
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
     final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
 
@@ -51,39 +56,44 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
-        findBtn = (Button) view.findViewById(R.id.find_btn);
 
-        findBtn.setOnClickListener(new Button.OnClickListener() {
+        DatabaseReference ref = fbDatabase.getReference("Rides");
+
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                find();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                lstRides = getAllRidesFromDb(dataSnapshot);
+                fillList();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // TODO: make Exception handling
             }
         });
 
         return view;
     }
 
-    // Finding the single last inserted record
-    // Here for testing purposes. Later to be implemented in home fragment to get endDistance
-    public void find() {
-//        // Get a reference to our posts
-//        final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
-//        DatabaseReference ref = fbDatabase.getReference("Rides");
-//        Query lastRecord = ref.limitToLast(1);
-//
-//        lastRecord.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                    lastRide = ds.getValue(Ride.class);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
+
+    private List<Ride> getAllRidesFromDb(DataSnapshot dataSnapshot) {
+        List<Ride> lstRides = new ArrayList<Ride>();
+
+        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+            Ride newRide = ds.getValue(Ride.class);
+            lstRides.add(newRide);
+        }
+
+        return lstRides;
+    }
+
+    public void declareLayoutElements(View view) {
+        historyList = (ListView) view.findViewById(R.id.historyList);
+    }
+
+    public void fillList(){
+        ArrayAdapter<Ride> adapter = new ArrayAdapter<Ride>(getActivity(), android.R.layout.simple_list_item_1, lstRides);
+//        historyList.setAdapter(adapter);
     }
 
 }

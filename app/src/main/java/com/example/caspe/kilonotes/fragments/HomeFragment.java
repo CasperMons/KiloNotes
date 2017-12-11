@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.example.caspe.kilonotes.R;
 import com.example.caspe.kilonotes.model.Ride;
-import com.example.caspe.kilonotes.operations.FirebaseHelper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -202,6 +201,13 @@ public class HomeFragment extends Fragment {
                 dialog.show();
             }
         });
+
+        clearFields();
+    }
+
+    private void clearFields() {
+        endDistance.setText("");
+        startDistance.setText("");
     }
 
     // TODO : make fireBase auth and get current user

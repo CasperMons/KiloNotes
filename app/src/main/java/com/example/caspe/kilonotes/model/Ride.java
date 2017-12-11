@@ -11,6 +11,4 @@ public class Ride {
     public long startDistance;
     public long endDistance;
     public String date;
-
-
 }
