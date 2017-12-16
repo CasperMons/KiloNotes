@@ -1,6 +1,7 @@
 package com.example.caspe.kilonotes.activities;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.caspe.kilonotes.R;
 import com.example.caspe.kilonotes.fragments.HistoryFragment;
@@ -27,13 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
-
-
-
-    private DatabaseReference dbReference;
-
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -95,9 +90,20 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()){
+            case R.id.action_logout:
+                //Do something
+                Toast.makeText(getApplicationContext(), "Uitloggen click", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_refresh:
+//                refreshLayout.setRefreshing(true);
+//                Toast.makeText(getApplicationContext(), R.string.toast_refresh, Toast.LENGTH_LONG).show();
+                return true;
+
         }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -132,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            textView.setText(getString(getArguments().getInt(ARG_SECTION_NUMBER), R.string.section_format));
             return rootView;
         }
     }

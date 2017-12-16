@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,8 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.caspe.kilonotes.R;
+import com.example.caspe.kilonotes.activities.MainActivity;
 import com.example.caspe.kilonotes.model.Ride;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class HomeFragment extends Fragment {
     // Declare Layout elements
     TextView drivenDistance;
@@ -35,9 +37,9 @@ public class HomeFragment extends Fragment {
     EditText endDistance;
     Button saveBtn;
     ProgressBar progressBar;
+    Ride lastRide;
 
     final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
-    public Ride lastRide;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 
@@ -59,11 +61,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
         declareLayoutElements(view);
-        progressBar.setVisibility(View.VISIBLE);
         setLastRide();
-        progressBar.setVisibility(View.INVISIBLE);
 
         startDistance.addTextChangedListener(new TextWatcher() {
             @Override
@@ -116,7 +115,7 @@ public class HomeFragment extends Fragment {
 
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     progressBar.setVisibility(View.VISIBLE);
-                                    saveAction();
+                                    saveRide();
                                 }
                             })
                             .setNegativeButton(android.R.string.no, null).show();
@@ -170,8 +169,9 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    public void saveAction() {
-        // TODO: also write data offline
+    public void saveRide() {
+        progressBar.setVisibility(View.VISIBLE);
+
         Ride newRide = new Ride();
         newRide.userName = getCurrentUser();
         newRide.startDistance = Integer.parseInt(startDistance.getText().toString());
@@ -188,7 +188,8 @@ public class HomeFragment extends Fragment {
                     saveResultDialogBuilder.setTitle(R.string.alert_success)
                             .setMessage(R.string.alert_message_ride_saved)
                             .setIcon(R.drawable.kilo_note_logo_green);
-
+                    clearFields();
+                    setLastRide();
                 } else {
                     saveResultDialogBuilder.setTitle(R.string.alert_title_fail)
                             .setMessage(R.string.alert_message_fail)
@@ -201,8 +202,6 @@ public class HomeFragment extends Fragment {
                 dialog.show();
             }
         });
-
-        clearFields();
     }
 
     private void clearFields() {
@@ -217,6 +216,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void setLastRide() {
+
         DatabaseReference ref = fbDatabase.getReference("Rides");
         Query lastRecord = ref.limitToLast(1);
         lastRecord.addValueEventListener(new ValueEventListener() {
@@ -225,7 +225,10 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     lastRide = ds.getValue(Ride.class);
                 }
-                startDistance.setText(Long.toString(lastRide.endDistance));
+                if (lastRide != null) {
+                    endDistance.setText("");
+                    startDistance.setText(Long.toString(lastRide.endDistance));
+                }
             }
 
             @Override
