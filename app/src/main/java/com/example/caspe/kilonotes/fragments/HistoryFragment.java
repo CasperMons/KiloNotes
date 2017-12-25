@@ -23,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class HistoryFragment extends Fragment {
     ArrayList<Ride> lstRides;
     Button getHistoryBtn;
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+    
     final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
 
     public HistoryFragment() {
@@ -61,8 +63,8 @@ public class HistoryFragment extends Fragment {
             public void onClick(View view) {
                 Toast.makeText(getContext(), "GETTING HISTORY", Toast.LENGTH_LONG).show();
                 if (lstRides != null) {
-                    ArrayList<Ride> rideArrayList = lstRides;
-                    RidesAdapter ridesAdapter = new RidesAdapter(getContext(), rideArrayList);
+                    Collections.sort(lstRides, Collections.reverseOrder());
+                    RidesAdapter ridesAdapter = new RidesAdapter(getContext(), lstRides);
                     historyList.setAdapter(ridesAdapter);
                 }
             }
@@ -73,11 +75,6 @@ public class HistoryFragment extends Fragment {
     public void declareLayoutElements(View view) {
         historyList = (ListView) view.findViewById(R.id.history_list);
         getHistoryBtn = (Button) view.findViewById(R.id.getHistoryButton);
-        if (lstRides != null) {
-            ArrayList<Ride> rideArrayList = lstRides;
-            RidesAdapter ridesAdapter = new RidesAdapter(getContext(), rideArrayList);
-            historyList.setAdapter(ridesAdapter);
-        }
     }
 
     public void getHistRides() {
@@ -92,7 +89,6 @@ public class HistoryFragment extends Fragment {
                     lstRidesFromDb.add(newRide);
                 }
                 lstRides = lstRidesFromDb;
-
             }
 
             @Override

@@ -176,7 +176,7 @@ public class HomeFragment extends Fragment {
         newRide.userName = getCurrentUser();
         newRide.startDistance = Integer.parseInt(startDistance.getText().toString());
         newRide.endDistance = Integer.parseInt(endDistance.getText().toString());
-        newRide.date = dateFormat.format(new Date());
+        newRide.date = new Date();
 
         DatabaseReference ref = fbDatabase.getReference("Rides");
 

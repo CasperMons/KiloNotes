@@ -21,6 +21,8 @@
     <color name="txt_edit_txt">#1c3041</color>
     <color name="txt_hint">#8da5ba</color>
 
+    <!-- ListView -->
+    <color name="list_divider">#e7e9f8</color>
 
 
 

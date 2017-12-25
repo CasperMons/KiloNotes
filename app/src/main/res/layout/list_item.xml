@@ -2,68 +2,94 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="100">
+        android:padding="1dp">
 
         <TextView
             android:id="@+id/list_ride_date"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="30"
-            android:textColor="@color/title_def"
+            android:layout_alignParentLeft="true"
             android:text="Date"
+            android:textColor="@color/title_def"
             android:textSize="20dp" />
 
         <TextView
             android:id="@+id/list_total_dist"
-            android:layout_width="0dp"
-            android:layout_weight="30"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="TotalDist"
             android:textColor="@color/title_def"
-            android:text="Distance"
             android:textSize="20dp" />
 
         <TextView
             android:id="@+id/list_user"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="30"
-            android:textColor="@color/title_def"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
             android:text="User"
-            android:textSize="20dp"
-            android:layout_gravity="right"
-            android:gravity="right"/>
-    </LinearLayout>
+            android:textColor="@color/title_def"
+            android:textSize="20dp" />
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="100">
+        android:padding="1dp">
 
         <TextView
             android:id="@+id/list_start_dist"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="30"
-            android:textColor="@color/txt_def"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
             android:text="StartDistance"
+            android:textColor="@color/txt_def"
             android:textSize="15dp" />
 
         <TextView
-            android:id="@+id/list_end_dist"
-            android:layout_width="0dp"
+            android:id="@+id/to"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="30"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/list_start_dist"
+            android:layout_toRightOf="@+id/list_start_dist"
+            android:text="@string/list_until"
             android:textColor="@color/txt_def"
+            android:textSize="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            />
+
+        <TextView
+            android:id="@+id/list_end_dist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/to"
+            android:layout_toRightOf="@id/to"
             android:text="EndDistance"
+            android:textColor="@color/txt_def"
             android:textSize="15dp" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/list_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="price"
+            android:textColor="@color/txt_def"
+            android:textSize="15dp"
+            />
+    </RelativeLayout>
 
 </LinearLayout>

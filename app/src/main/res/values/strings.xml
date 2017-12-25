@@ -36,4 +36,7 @@
     <!-- Toasts -->
     <string name="toast_logout">Uitloggen...</string>
     <string name="toast_refresh">Vernieuwen...</string>
+
+    <!-- List Texts -->
+    <string name="list_until"> tot </string>
 </resources>
