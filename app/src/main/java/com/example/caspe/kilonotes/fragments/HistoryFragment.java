@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.caspe.kilonotes.R;
+import com.example.caspe.kilonotes.adapters.RidesAdapter;
 import com.example.caspe.kilonotes.model.Ride;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,15 +23,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class HistoryFragment extends Fragment {
 
     ListView historyList;
-    List<Ride> lstRides;
+    ArrayList<Ride> lstRides;
     Button getHistoryBtn;
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
     final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
 
     public HistoryFragment() {
@@ -58,9 +60,10 @@ public class HistoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "GETTING HISTORY", Toast.LENGTH_LONG).show();
-                if(lstRides != null){
-                    ArrayAdapter<Ride> arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, lstRides);
-                    historyList.setAdapter(arrayAdapter);
+                if (lstRides != null) {
+                    ArrayList<Ride> rideArrayList = lstRides;
+                    RidesAdapter ridesAdapter = new RidesAdapter(getContext(), rideArrayList);
+                    historyList.setAdapter(ridesAdapter);
                 }
             }
         });
@@ -70,16 +73,12 @@ public class HistoryFragment extends Fragment {
     public void declareLayoutElements(View view) {
         historyList = (ListView) view.findViewById(R.id.history_list);
         getHistoryBtn = (Button) view.findViewById(R.id.getHistoryButton);
-        if(lstRides != null){
-            ArrayAdapter<Ride> arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, lstRides);
-            historyList.setAdapter(arrayAdapter);
+        if (lstRides != null) {
+            ArrayList<Ride> rideArrayList = lstRides;
+            RidesAdapter ridesAdapter = new RidesAdapter(getContext(), rideArrayList);
+            historyList.setAdapter(ridesAdapter);
         }
     }
-
-//    public void fillList() {
-//        ArrayAdapter<Ride> adapter = new ArrayAdapter<Ride>(getActivity(), android.R.layout.simple_list_item_1, lstRides);
-//        historyList.setAdapter(adapter);
-//    }
 
     public void getHistRides() {
         DatabaseReference ref = fbDatabase.getReference("Rides");
@@ -87,11 +86,12 @@ public class HistoryFragment extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Ride> lstRidesFromDb = new ArrayList<>();
+                ArrayList<Ride> lstRidesFromDb = new ArrayList<>();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Ride newRide = ds.getValue(Ride.class);
                     lstRidesFromDb.add(newRide);
-                }lstRides = lstRidesFromDb;
+                }
+                lstRides = lstRidesFromDb;
 
             }
 
