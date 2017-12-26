@@ -1,5 +1,7 @@
 package com.example.caspe.kilonotes.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -95,11 +99,6 @@ public class MainActivity extends AppCompatActivity {
                 //Do something
                 Toast.makeText(getApplicationContext(), "Uitloggen click", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.action_refresh:
-//                refreshLayout.setRefreshing(true);
-//                Toast.makeText(getApplicationContext(), R.string.toast_refresh, Toast.LENGTH_LONG).show();
-                return true;
-
         }
 //        if (id == R.id.action_settings) {
 //            return true;
@@ -172,5 +171,20 @@ public class MainActivity extends AppCompatActivity {
             // Show 2 total pages.
             return 2;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog saveResultDialogBuilder = new AlertDialog.Builder(this)
+                .setTitle(R.string.alert_title_ask_leave)
+                .setMessage(R.string.alert_message_ask_leave)
+                .setIcon(R.drawable.kilo_note_logo)
+                .setPositiveButton(R.string.alert_confirm_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        System.exit(0);
+                    }
+                })
+                .setNegativeButton(R.string.alert_confirm_cancel, null).show();
     }
 }

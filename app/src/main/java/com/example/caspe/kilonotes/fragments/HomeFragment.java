@@ -15,10 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.caspe.kilonotes.R;
-import com.example.caspe.kilonotes.activities.MainActivity;
 import com.example.caspe.kilonotes.model.Ride;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +36,7 @@ public class HomeFragment extends Fragment {
     Button saveBtn;
     ProgressBar progressBar;
     Ride lastRide;
+    SwipeRefreshLayout swipeRefreshLastRide;
 
     final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
 
@@ -130,6 +129,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        swipeRefreshLastRide.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setLastRide();
+            }
+        });
+
         return view;
     }
 
@@ -139,6 +145,7 @@ public class HomeFragment extends Fragment {
         endDistance = (EditText) view.findViewById(R.id.edit_end_dist);
         saveBtn = (Button) view.findViewById(R.id.save_btn);
         progressBar = (ProgressBar) view.findViewById(R.id.save_progress);
+        swipeRefreshLastRide = (SwipeRefreshLayout)view.findViewById(R.id.refresh_last_ride);
     }
 
     public void setDrivenKm() {
@@ -162,7 +169,7 @@ public class HomeFragment extends Fragment {
     }
 
     public boolean checkFieldsFilled() {
-        if (!(endDistance.getText().toString().matches("")) && !(startDistance.getText().toString().matches(""))) {
+        if (!(endDistance.getText().toString().equals("")) && !(startDistance.getText().toString().equals(""))){
             return true;
         } else {
             return false;
@@ -219,7 +226,7 @@ public class HomeFragment extends Fragment {
 
         DatabaseReference ref = fbDatabase.getReference("Rides");
         Query lastRecord = ref.limitToLast(1);
-        lastRecord.addValueEventListener(new ValueEventListener() {
+        lastRecord.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -229,6 +236,8 @@ public class HomeFragment extends Fragment {
                     endDistance.setText("");
                     startDistance.setText(Long.toString(lastRide.endDistance));
                 }
+
+                swipeRefreshLastRide.setRefreshing(false);
             }
 
             @Override
@@ -237,4 +246,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+
 }

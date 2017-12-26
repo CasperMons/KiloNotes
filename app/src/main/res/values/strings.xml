@@ -32,6 +32,10 @@
     <string name="alert_message_fail">Er is iets fout gegaan. Probeer het later opnieuw of neem contact op met de provider van deze app.</string>
     <string name="alert_title_ask_save">Opslaan?</string>
     <string name="alert_message_ask_save">Weet u zeker dat u deze rit wilt opslaan?</string>
+    <string name="alert_confirm_yes">Ja</string>
+    <string name="alert_confirm_cancel">Blijven</string>
+    <string name="alert_title_ask_leave">KiloNotes sluiten</string>
+    <string name="alert_message_ask_leave">Weet u zeker dat u de applicatie wilt verlaten?</string>
 
     <!-- Toasts -->
     <string name="toast_logout">Uitloggen...</string>

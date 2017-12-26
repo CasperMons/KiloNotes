@@ -26,6 +26,4 @@ public class FirebaseHelper {
     private static final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
     private static List<Ride> lstRides = new ArrayList<>();
     private static Ride lastRide;
-
-
 }

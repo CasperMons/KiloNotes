@@ -1,14 +1,12 @@
 package com.example.caspe.kilonotes.fragments;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,20 +19,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+
 
 public class HistoryFragment extends Fragment {
 
     ListView historyList;
     ArrayList<Ride> lstRides;
-    Button getHistoryBtn;
+    SwipeRefreshLayout swipeRefreshHistory;
 
-    
+
     final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
 
     public HistoryFragment() {
@@ -49,7 +44,7 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getHistRides();
+
     }
 
     @Override
@@ -57,16 +52,12 @@ public class HistoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
         declareLayoutElements(view);
-
-        getHistoryBtn.setOnClickListener(new View.OnClickListener() {
+        setHistoryRides();
+        swipeRefreshHistory.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "GETTING HISTORY", Toast.LENGTH_LONG).show();
-                if (lstRides != null) {
-                    Collections.sort(lstRides, Collections.reverseOrder());
-                    RidesAdapter ridesAdapter = new RidesAdapter(getContext(), lstRides);
-                    historyList.setAdapter(ridesAdapter);
-                }
+            public void onRefresh() {
+                Toast.makeText(getContext(), "Refreshing History", Toast.LENGTH_SHORT).show();
+                setHistoryRides();
             }
         });
         return view;
@@ -74,13 +65,13 @@ public class HistoryFragment extends Fragment {
 
     public void declareLayoutElements(View view) {
         historyList = (ListView) view.findViewById(R.id.history_list);
-        getHistoryBtn = (Button) view.findViewById(R.id.getHistoryButton);
+        swipeRefreshHistory = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
     }
 
-    public void getHistRides() {
+    public void setHistoryRides() {
         DatabaseReference ref = fbDatabase.getReference("Rides");
 
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<Ride> lstRidesFromDb = new ArrayList<>();
@@ -89,12 +80,22 @@ public class HistoryFragment extends Fragment {
                     lstRidesFromDb.add(newRide);
                 }
                 lstRides = lstRidesFromDb;
+                swipeRefreshHistory.setRefreshing(false);
+                fillHistory();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // TODO: make Exception handling
+                Log.e("DBERROR", databaseError.getMessage());
             }
         });
+    }
+
+    public void fillHistory() {
+        if (lstRides != null) {
+            Collections.sort(lstRides, Collections.reverseOrder());
+            RidesAdapter ridesAdapter = new RidesAdapter(getContext(), lstRides);
+            historyList.setAdapter(ridesAdapter);
+        }
     }
 }

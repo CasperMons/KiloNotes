@@ -8,10 +8,10 @@
         android:title="@string/action_logout"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_refresh"
-        android:orderInCategory="99"
-        android:title="@string/action_refresh"
-        app:showAsAction="never"/>
+    <!--<item-->
+        <!--android:id="@+id/action_refresh"-->
+        <!--android:orderInCategory="99"-->
+        <!--android:title="@string/action_refresh"-->
+        <!--app:showAsAction="never"/>-->
 
 </menu>
