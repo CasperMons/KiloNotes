@@ -16,6 +16,7 @@
     <!-- Button texts-->
     <string name="btn_login">Log in</string>
     <string name="btn_save">Opslaan</string>
+    <string name="btn_reg_user">Nieuwe gebruiker</string>
 
     <!-- EditText hints -->
     <string name="edit_username">Gebruikersnaam: </string>

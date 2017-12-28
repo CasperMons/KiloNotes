@@ -14,6 +14,7 @@
     <!-- Button -->
     <color name="btn_def">#ffa930</color>
     <color name="btn_txt_def">#10161d</color>
+    <color name="btn_register">#FF140D</color>
 
     <!-- Texts -->
     <color name="txt_def">#e7e9f8</color>
