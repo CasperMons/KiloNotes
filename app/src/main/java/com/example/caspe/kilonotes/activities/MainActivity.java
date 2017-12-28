@@ -2,6 +2,7 @@ package com.example.caspe.kilonotes.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +30,7 @@ import android.widget.Toast;
 import com.example.caspe.kilonotes.R;
 import com.example.caspe.kilonotes.fragments.HistoryFragment;
 import com.example.caspe.kilonotes.fragments.HomeFragment;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -86,6 +89,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void logOut(){
+        Toast.makeText(getApplicationContext(), R.string.toast_logout, Toast.LENGTH_SHORT).show();
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -96,13 +106,9 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         switch (item.getItemId()){
             case R.id.action_logout:
-                //Do something
-                Toast.makeText(getApplicationContext(), "Uitloggen click", Toast.LENGTH_SHORT).show();
+                logOut();
                 return true;
         }
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -111,10 +117,7 @@ public class MainActivity extends AppCompatActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
+
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
@@ -140,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
             textView.setText(getString(getArguments().getInt(ARG_SECTION_NUMBER), R.string.section_format));
             return rootView;
         }
+
     }
 
 
@@ -186,5 +190,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .setNegativeButton(R.string.alert_confirm_cancel, null).show();
+
+        // TODO: shut down application for real...
     }
 }

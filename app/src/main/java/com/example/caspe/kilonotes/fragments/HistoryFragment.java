@@ -56,7 +56,7 @@ public class HistoryFragment extends Fragment {
         swipeRefreshHistory.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(getContext(), "Refreshing History", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.toast_refresh_history, Toast.LENGTH_SHORT).show();
                 setHistoryRides();
             }
         });

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.caspe.kilonotes.R;
 import com.example.caspe.kilonotes.model.Ride;
@@ -132,6 +133,8 @@ public class HomeFragment extends Fragment {
         swipeRefreshLastRide.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                Toast.makeText(getContext(), R.string.toast_refresh_last_ride, Toast.LENGTH_SHORT).show();
+
                 setLastRide();
             }
         });

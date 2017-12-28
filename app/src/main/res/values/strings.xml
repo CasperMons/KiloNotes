@@ -5,6 +5,7 @@
     <string name="title_activity_main">Kilo Notes</string>
     <string name="tab_title_new_ride">Niewe Rit</string>
     <string name="tab_title_history">Geschiedenis</string>
+    <string name="title_register_user">Nieuwe gebruiker</string>
 
     <string name="driven_km">Gereden kilometers: </string>
     <string name="amount_km">0 KM</string>
@@ -17,12 +18,15 @@
     <string name="btn_login">Log in</string>
     <string name="btn_save">Opslaan</string>
     <string name="btn_reg_user">Nieuwe gebruiker</string>
+    <string name="btn_have_acc">Inloggen</string>
+    <string name="btn_register">Registreren</string>
 
     <!-- EditText hints -->
-    <string name="edit_username">Gebruikersnaam: </string>
+    <string name="edit_username">Email-adres: </string>
     <string name="edit_password">Wachtwoord: </string>
     <string name="start_distance_hint">Beginstand: </string>
     <string name="end_distance_hint">Eindstand: </string>
+    <string name="edit_confirm_pass">Bevestigen: </string>
 
     <!-- Alert dialogs -->
     <string name="alert_message_no_km">Het aantal gereden kilometers kon niet berekend worden. Controleer of beide velden juist zijn gevuld en probeer het opnieuw</string>
@@ -37,11 +41,29 @@
     <string name="alert_confirm_cancel">Blijven</string>
     <string name="alert_title_ask_leave">KiloNotes sluiten</string>
     <string name="alert_message_ask_leave">Weet u zeker dat u de applicatie wilt verlaten?</string>
+    <string name="alert_title_pass_too_short">Wachtwoord is te kort</string>
+    <string name="alert_message_pass_too_short">Het wachtwoord moet minimaal uit 8 tekens bestaan</string>
+    <string name="alert_title_pass_false_match">Wachtwoorden komen niet overeen</string>
+    <string name="alert_message_pass_false_match">De wachtwoorden moeten overeen komen</string>
+    <string name="alert_title_username_empty">Email-adres leeg</string>
+    <string name="alert_message_username_empty">Vul uw email-adres in om een nieuwe gebruiker te maken</string>
+    <string name="alert_title_reg_success">Gelukt!</string>
+    <string name="alert_message_reg_success">Welkom bij KiloNotes </string>
+    <string name="alert_title_reg_fail">Oeps...</string>
+    <string name="alert_message_reg_fail">Er is iets fout gegaan bij het opslaan van de nieuwe gebruiker. Probeer het later nog eens</string>
 
     <!-- Toasts -->
     <string name="toast_logout">Uitloggen...</string>
     <string name="toast_refresh">Vernieuwen...</string>
+    <string name="toast_auth_fail">Kon niet inloggen, controleer uw gegevens</string>
+    <string name="toast_auth_success">Ingelogd!</string>
+    <string name="toast_refresh_history">Geschiedenis ophalen...</string>
+    <string name="toast_refresh_last_ride">Eindstand van de laatste rit ophalen</string>
+
 
     <!-- List Texts -->
     <string name="list_until"> tot </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
