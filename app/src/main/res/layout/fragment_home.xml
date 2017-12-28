@@ -55,7 +55,7 @@
                     android:background="@drawable/rounded_corners"
                     android:backgroundTint="@color/bg_edit_txt"
                     android:gravity="center_horizontal|center_vertical"
-                    android:hint="@string/start_distance_hint"
+                    android:hint="@string/edit_start_distance_hint"
                     android:inputType="number"
                     android:textColor="@color/txt_edit_txt"
                     android:textColorHint="@color/txt_hint"
@@ -69,7 +69,7 @@
                     android:background="@drawable/rounded_corners"
                     android:backgroundTint="@color/bg_edit_txt"
                     android:gravity="center_horizontal|center_vertical"
-                    android:hint="@string/end_distance_hint"
+                    android:hint="@string/edit_end_distance_hint"
                     android:inputType="number"
                     android:textColorHint="@color/txt_hint"
                     android:textSize="20sp" />

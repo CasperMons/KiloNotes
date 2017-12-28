@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.example.caspe.kilonotes.R;
 import com.example.caspe.kilonotes.model.Ride;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +41,8 @@ public class HomeFragment extends Fragment {
     Ride lastRide;
     SwipeRefreshLayout swipeRefreshLastRide;
 
+    FirebaseUser currentUser;
+
     final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
@@ -55,6 +59,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     @Override
@@ -134,11 +139,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onRefresh() {
                 Toast.makeText(getContext(), R.string.toast_refresh_last_ride, Toast.LENGTH_SHORT).show();
-
                 setLastRide();
             }
         });
-
         return view;
     }
 
@@ -148,7 +151,7 @@ public class HomeFragment extends Fragment {
         endDistance = (EditText) view.findViewById(R.id.edit_end_dist);
         saveBtn = (Button) view.findViewById(R.id.save_btn);
         progressBar = (ProgressBar) view.findViewById(R.id.save_progress);
-        swipeRefreshLastRide = (SwipeRefreshLayout)view.findViewById(R.id.refresh_last_ride);
+        swipeRefreshLastRide = (SwipeRefreshLayout) view.findViewById(R.id.refresh_last_ride);
     }
 
     public void setDrivenKm() {
@@ -172,7 +175,7 @@ public class HomeFragment extends Fragment {
     }
 
     public boolean checkFieldsFilled() {
-        if (!(endDistance.getText().toString().equals("")) && !(startDistance.getText().toString().equals(""))){
+        if (!(endDistance.getText().toString().equals("")) && !(startDistance.getText().toString().equals(""))) {
             return true;
         } else {
             return false;
@@ -189,29 +192,34 @@ public class HomeFragment extends Fragment {
         newRide.date = new Date();
 
         DatabaseReference ref = fbDatabase.getReference("Rides");
+        if (!newRide.userName.equals("")) {
+            ref.push().setValue(newRide, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError error, DatabaseReference ref) {
+                    AlertDialog.Builder saveResultDialogBuilder = new AlertDialog.Builder(getActivity());
+                    if (error == null) {
+                        saveResultDialogBuilder.setTitle(R.string.alert_success)
+                                .setMessage(R.string.alert_message_ride_saved)
+                                .setIcon(R.drawable.kilo_note_logo_green);
+                        clearFields();
+                        setLastRide();
+                    } else {
+                        saveResultDialogBuilder.setTitle(R.string.alert_title_fail)
+                                .setMessage(R.string.alert_message_fail)
+                                .setIcon(R.drawable.kilo_note_logo_red);
+                        Log.e("SaveRide: ", "Error: " + error);
+                    }
 
-        ref.push().setValue(newRide, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(DatabaseError error, DatabaseReference ref) {
-                AlertDialog.Builder saveResultDialogBuilder = new AlertDialog.Builder(getActivity());
-                if (error == null) {
-                    saveResultDialogBuilder.setTitle(R.string.alert_success)
-                            .setMessage(R.string.alert_message_ride_saved)
-                            .setIcon(R.drawable.kilo_note_logo_green);
-                    clearFields();
-                    setLastRide();
-                } else {
-                    saveResultDialogBuilder.setTitle(R.string.alert_title_fail)
-                            .setMessage(R.string.alert_message_fail)
-                            .setIcon(R.drawable.kilo_note_logo_red);
-                    Log.e("SaveRide: ", "Error: " + error);
+                    AlertDialog dialog = saveResultDialogBuilder.create();
+                    progressBar.setVisibility(View.INVISIBLE);
+                    dialog.show();
                 }
-
-                AlertDialog dialog = saveResultDialogBuilder.create();
-                progressBar.setVisibility(View.INVISIBLE);
-                dialog.show();
-            }
-        });
+            });
+        }
+        else{
+            new AlertDialog.Builder(getContext()).setTitle(R.string.alert_title_nickname_error)
+                    .setMessage(R.string.alert_message_nickname_error).show();
+        }
     }
 
     private void clearFields() {
@@ -221,8 +229,11 @@ public class HomeFragment extends Fragment {
 
     // TODO : make fireBase auth and get current user
     public String getCurrentUser() {
-        String testUser = "testUser";
-        return testUser;
+        String nickname = "";
+        if (currentUser != null) {
+            nickname = currentUser.getDisplayName();
+        }
+        return nickname;
     }
 
     public void setLastRide() {
@@ -249,6 +260,4 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
-
 }

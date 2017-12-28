@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,11 +17,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class RegisterActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
-    EditText editUserName;
+    EditText editEmail;
+    EditText editNickname;
     EditText editPassword;
     EditText editConfirmPassword;
     Button registerUserBtn;
@@ -46,30 +47,36 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void declareLayoutElements() {
-        editUserName = (EditText) findViewById(R.id.edit_new_username);
+        editEmail = (EditText) findViewById(R.id.edit_new_email);
         editPassword = (EditText) findViewById(R.id.edit_new_pass);
         editConfirmPassword = (EditText) findViewById(R.id.edit_confirm_pass);
         registerUserBtn = (Button) findViewById(R.id.reg_btn);
         regProgress = (ProgressBar) findViewById(R.id.register_progress);
+        editNickname = (EditText) findViewById(R.id.edit_nick_name);
     }
 
     private void saveNewUser() {
         regProgress.setVisibility(View.VISIBLE);
         firebaseAuth = FirebaseAuth.getInstance();
-        String userName = editUserName.getText().toString();
+        String nickname = editNickname.getText().toString();
+        String email = editEmail.getText().toString();
         String password = editPassword.getText().toString();
         String confirmPass = editConfirmPassword.getText().toString();
-        if (checkCredentials(userName, password, confirmPass)) {
-            firebaseAuth.createUserWithEmailAndPassword(userName, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        if (checkCredentials(nickname, email, password, confirmPass)) {
+            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    registerFeedback(task.isSuccessful());
+                    currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if (task.isSuccessful()) {
+                        setNickname();
+                    }
+                    registerFeedback(task.isSuccessful());// TODO:  move to setNickname()
                 }
             });
         }
     }
 
-    private boolean checkCredentials(String userName, String password, String confirmPass) {
+    private boolean checkCredentials(String nickname, String email, String password, String confirmPass) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         if (password.length() < 8) {
             alertDialog.setTitle(R.string.alert_title_pass_too_short)
@@ -79,9 +86,13 @@ public class RegisterActivity extends AppCompatActivity {
             alertDialog.setTitle(R.string.alert_title_pass_false_match)
                     .setMessage(R.string.alert_message_pass_false_match)
                     .setIcon(R.drawable.kilo_note_logo_red);
-        } else if (userName.equals("")) {
-            alertDialog.setTitle(R.string.alert_title_username_empty)
-                    .setMessage(R.string.alert_message_username_empty)
+        } else if (email.equals("")) {
+            alertDialog.setTitle(R.string.alert_title_email_empty)
+                    .setMessage(R.string.alert_message_email_empty)
+                    .setIcon(R.drawable.kilo_note_logo_red);
+        } else if (nickname.equals("")) {
+            alertDialog.setTitle(R.string.alert_title_nickname_empty)
+                    .setMessage(R.string.alert_message_nickname_empty)
                     .setIcon(R.drawable.kilo_note_logo_red);
         } else {
             return true;
@@ -91,17 +102,33 @@ public class RegisterActivity extends AppCompatActivity {
         return false;
     }
 
+    private void setNickname() {
+        String nickname = editNickname.getText().toString();
+        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                .setDisplayName(nickname).build();
+        currentUser.updateProfile(profileUpdate)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                        registerFeedback(task.isSuccessful());
+                    }
+                });
+
+    }
+
     private void registerFeedback(Boolean success) {
         regProgress.setVisibility(View.INVISIBLE);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         if (success) {
-            alertDialog.setTitle(R.string.alert_title_reg_success)
+            alertDialog.setTitle("Welkom " + currentUser.getDisplayName())
                     .setMessage(R.string.alert_message_reg_success)
                     .setIcon(R.drawable.kilo_note_logo_green)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             startMainActivity();
+                            //TODO: add email verification
                         }
                     });
 
@@ -113,7 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void startMainActivity(){
+    private void startMainActivity() {
         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(intent);
     }

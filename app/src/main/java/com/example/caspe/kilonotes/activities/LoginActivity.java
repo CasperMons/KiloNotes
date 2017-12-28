@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.caspe.kilonotes.R;
@@ -20,10 +21,11 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    EditText editUserName;
+    EditText editEmail;
     EditText editPassword;
     Button loginBtn;
     Button newUsrBtn;
+    ProgressBar loginProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: progressbar
+                loginProgress.setVisibility(View.VISIBLE);
                 login();
             }
         });
@@ -52,8 +54,9 @@ public class LoginActivity extends AppCompatActivity {
     private void declareLayoutElements() {
         loginBtn = (Button) findViewById(R.id.login_btn);
         newUsrBtn = (Button) findViewById(R.id.btn_reg_new_user);
-        editUserName = (EditText) findViewById(R.id.edit_username);
+        editEmail = (EditText) findViewById(R.id.edit_email);
         editPassword = (EditText) findViewById(R.id.edit_password);
+        loginProgress = (ProgressBar)findViewById(R.id.login_progress);
     }
 
     @Override
@@ -67,19 +70,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
-        String userName = editUserName.getText().toString();
+        String email = editEmail.getText().toString();
         String password = editPassword.getText().toString();
-        if (!userName.equals("") && !password.equals("")) {
-            firebaseAuth.signInWithEmailAndPassword(userName, password)
+        if (!email.equals("") && !password.equals("")) {
+            firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Log.e("FIREBASEAUTH", "signInWithEmail:success");
                                 Toast.makeText(LoginActivity.this, R.string.toast_auth_success, Toast.LENGTH_LONG).show();
+                                loginProgress.setVisibility(View.INVISIBLE);
                                 startMainActivity();
                             } else {
                                 Log.e("FIREBASEAUTH", "signInWithEmail:failure");
+                                loginProgress.setVisibility(View.INVISIBLE);
                                 Toast.makeText(LoginActivity.this, R.string.toast_auth_fail, Toast.LENGTH_LONG).show();
                             }
                         }

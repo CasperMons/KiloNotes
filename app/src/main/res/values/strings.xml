@@ -22,11 +22,12 @@
     <string name="btn_register">Registreren</string>
 
     <!-- EditText hints -->
-    <string name="edit_username">Email-adres: </string>
-    <string name="edit_password">Wachtwoord: </string>
-    <string name="start_distance_hint">Beginstand: </string>
-    <string name="end_distance_hint">Eindstand: </string>
-    <string name="edit_confirm_pass">Bevestigen: </string>
+    <string name="edit_email_hint">Email-adres: </string>
+    <string name="edit_password_hint">Wachtwoord: </string>
+    <string name="edit_start_distance_hint">Beginstand: </string>
+    <string name="edit_end_distance_hint">Eindstand: </string>
+    <string name="edit_confirm_pass_hint">Bevestigen: </string>
+    <string name="edit_nick_name">Naam: </string>
 
     <!-- Alert dialogs -->
     <string name="alert_message_no_km">Het aantal gereden kilometers kon niet berekend worden. Controleer of beide velden juist zijn gevuld en probeer het opnieuw</string>
@@ -45,12 +46,16 @@
     <string name="alert_message_pass_too_short">Het wachtwoord moet minimaal uit 8 tekens bestaan</string>
     <string name="alert_title_pass_false_match">Wachtwoorden komen niet overeen</string>
     <string name="alert_message_pass_false_match">De wachtwoorden moeten overeen komen</string>
-    <string name="alert_title_username_empty">Email-adres leeg</string>
-    <string name="alert_message_username_empty">Vul uw email-adres in om een nieuwe gebruiker te maken</string>
+    <string name="alert_title_email_empty">Email-adres leeg</string>
+    <string name="alert_message_email_empty">Vul uw email-adres in om een nieuwe gebruiker te maken</string>
     <string name="alert_title_reg_success">Gelukt!</string>
-    <string name="alert_message_reg_success">Welkom bij KiloNotes </string>
+    <string name="alert_message_reg_success">Registratie voltooid, u kunt nu van start gaan in de App</string>
     <string name="alert_title_reg_fail">Oeps...</string>
-    <string name="alert_message_reg_fail">Er is iets fout gegaan bij het opslaan van de nieuwe gebruiker. Probeer het later nog eens</string>
+    <string name="alert_message_reg_fail">Er is iets fout gegaan bij het opslaan van de nieuwe gebruiker. Probeer het later nog eens.</string>
+    <string name="alert_title_nickname_empty">Bijnaam leeg</string>
+    <string name="alert_message_nickname_empty">Bedenk een korte bijnaam of initialen en vul deze in</string>
+    <string name="alert_title_nickname_error">Oeps...</string>
+    <string name="alert_message_nickname_error">Er is iets misgegaan bij het ophalen van de bijnaam. Probeer het later nog eens.</string>
 
     <!-- Toasts -->
     <string name="toast_logout">Uitloggen...</string>

@@ -3,17 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.caspe.kilonotes.activities.RegisterActivity"
-    android:background="@drawable/bg_gradient">
+    android:background="@drawable/bg_gradient"
+    tools:context="com.example.caspe.kilonotes.activities.RegisterActivity">
+
 
     <LinearLayout
-        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -24,31 +25,45 @@
             android:textSize="25sp"
             android:textStyle="bold" />
 
+
         <EditText
-            android:id="@+id/edit_new_username"
+            android:id="@+id/edit_nick_name"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/rounded_corners"
             android:backgroundTint="@color/bg_edit_txt"
             android:gravity="center_horizontal|center_vertical"
-            android:hint="@string/edit_username"
+            android:hint="@string/edit_nick_name"
+            android:textColorHint="@color/txt_hint"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edit_new_email"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_corners"
+            android:backgroundTint="@color/bg_edit_txt"
+            android:gravity="center_horizontal|center_vertical"
+            android:hint="@string/edit_email_hint"
             android:textColor="@color/txt_edit_txt"
             android:textColorHint="@color/txt_hint"
             android:textSize="20sp" />
 
         <EditText
-        android:id="@+id/edit_new_pass"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_corners"
-        android:backgroundTint="@color/bg_edit_txt"
-        android:gravity="center_horizontal|center_vertical"
-        android:hint="@string/edit_password"
-        android:inputType="textPassword"
-        android:textColorHint="@color/txt_hint"
-        android:textSize="20sp" />
+            android:id="@+id/edit_new_pass"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_corners"
+            android:backgroundTint="@color/bg_edit_txt"
+            android:gravity="center_horizontal|center_vertical"
+            android:hint="@string/edit_password_hint"
+            android:inputType="textPassword"
+            android:textColorHint="@color/txt_hint"
+            android:textSize="20sp" />
+
 
         <EditText
             android:id="@+id/edit_confirm_pass"
@@ -58,7 +73,7 @@
             android:background="@drawable/rounded_corners"
             android:backgroundTint="@color/bg_edit_txt"
             android:gravity="center_horizontal|center_vertical"
-            android:hint="@string/edit_confirm_pass"
+            android:hint="@string/edit_confirm_pass_hint"
             android:inputType="textPassword"
             android:textColorHint="@color/txt_hint"
             android:textSize="20sp" />
@@ -76,13 +91,12 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
         android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true">
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/btn_have_acc"
@@ -106,7 +120,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:visibility="invisible"
-        />
+        android:visibility="invisible" />
 
 </RelativeLayout>
