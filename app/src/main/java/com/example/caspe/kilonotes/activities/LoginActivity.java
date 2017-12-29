@@ -1,5 +1,7 @@
 package com.example.caspe.kilonotes.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -56,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         newUsrBtn = (Button) findViewById(R.id.btn_reg_new_user);
         editEmail = (EditText) findViewById(R.id.edit_email);
         editPassword = (EditText) findViewById(R.id.edit_password);
-        loginProgress = (ProgressBar)findViewById(R.id.login_progress);
+        loginProgress = (ProgressBar) findViewById(R.id.login_progress);
     }
 
     @Override
@@ -100,5 +102,24 @@ public class LoginActivity extends AppCompatActivity {
     private void startMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog saveResultDialogBuilder = new AlertDialog.Builder(this)
+                .setTitle(R.string.alert_title_ask_leave)
+                .setMessage(R.string.alert_message_ask_leave)
+                .setIcon(R.drawable.kilo_note_logo)
+                .setPositiveButton(R.string.alert_confirm_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        System.exit(0);
+                    }
+                })
+                .setNegativeButton(R.string.alert_confirm_cancel, null).show();
     }
 }

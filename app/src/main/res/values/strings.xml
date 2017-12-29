@@ -17,8 +17,8 @@
     <!-- Button texts-->
     <string name="btn_login">Log in</string>
     <string name="btn_save">Opslaan</string>
-    <string name="btn_reg_user">Nieuwe gebruiker</string>
-    <string name="btn_have_acc">Inloggen</string>
+    <string name="btn_reg_user"><u>Nieuwe gebruiker?</u></string>
+    <string name="btn_have_acc"><u>Al een account?</u></string>
     <string name="btn_register">Registreren</string>
 
     <!-- EditText hints -->

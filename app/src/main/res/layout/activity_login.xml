@@ -7,84 +7,77 @@
     android:gravity="center_horizontal"
     tools:context="com.example.caspe.kilonotes.activities.LoginActivity">
 
-    <LinearLayout
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/title_login"
-            android:textColor="@color/title_def"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/edit_email"
-            android:layout_width="250dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_corners"
-            android:backgroundTint="@color/bg_edit_txt"
-            android:gravity="center_horizontal|center_vertical"
-            android:hint="@string/edit_email_hint"
-            android:textColor="@color/txt_edit_txt"
-            android:textColorHint="@color/txt_hint"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edit_password"
-            android:layout_width="250dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_corners"
-            android:backgroundTint="@color/bg_edit_txt"
-            android:gravity="center_horizontal|center_vertical"
-            android:hint="@string/edit_password_hint"
-            android:inputType="textPassword"
-            android:textColorHint="@color/txt_hint"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/login_btn"
-            android:layout_width="250dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_corners"
-            android:backgroundTint="@color/btn_def"
-            android:text="@string/btn_login"
-            android:textColor="@color/btn_txt_def"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btn_reg_new_user"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_corners"
-            android:backgroundTint="@color/btn_register"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="@string/btn_reg_user"
-            android:textColor="@color/txt_def"
-            android:textSize="12sp" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/title_login"
+                android:textColor="@color/title_def"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edit_email"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/bg_edit_txt"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="@string/edit_email_hint"
+                android:textColor="@color/txt_edit_txt"
+                android:textColorHint="@color/txt_hint"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edit_password"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/bg_edit_txt"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="@string/edit_password_hint"
+                android:inputType="textPassword"
+                android:textColorHint="@color/txt_hint"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/login_btn"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/btn_def"
+                android:text="@string/btn_login"
+                android:textColor="@color/btn_txt_def"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_reg_new_user"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#00FFFFFF"
+                android:text="@string/btn_reg_user"
+                android:textColor="@color/txt_def"
+                android:textStyle=""
+                android:textSize="12sp" />
+        </LinearLayout>
+    </ScrollView>
 
     <ProgressBar
         android:id="@+id/login_progress"

@@ -186,11 +186,15 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.alert_confirm_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                         System.exit(0);
                     }
                 })
                 .setNegativeButton(R.string.alert_confirm_cancel, null).show();
 
-        // TODO: shut down application for real...
+
     }
 }

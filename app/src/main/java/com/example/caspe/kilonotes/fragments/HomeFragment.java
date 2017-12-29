@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
@@ -44,8 +45,6 @@ public class HomeFragment extends Fragment {
     FirebaseUser currentUser;
 
     final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
-
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 
     public HomeFragment() {
         // Required empty public constructor
@@ -184,13 +183,13 @@ public class HomeFragment extends Fragment {
 
     public void saveRide() {
         progressBar.setVisibility(View.VISIBLE);
-
+        // TODO: get firebase timestamp
+        Date firebaseDateTime = new Date();
         Ride newRide = new Ride();
         newRide.userName = getCurrentUser();
         newRide.startDistance = Integer.parseInt(startDistance.getText().toString());
         newRide.endDistance = Integer.parseInt(endDistance.getText().toString());
-        newRide.date = new Date();
-
+        newRide.date = firebaseDateTime;
         DatabaseReference ref = fbDatabase.getReference("Rides");
         if (!newRide.userName.equals("")) {
             ref.push().setValue(newRide, new DatabaseReference.CompletionListener() {
@@ -215,8 +214,7 @@ public class HomeFragment extends Fragment {
                     dialog.show();
                 }
             });
-        }
-        else{
+        } else {
             new AlertDialog.Builder(getContext()).setTitle(R.string.alert_title_nickname_error)
                     .setMessage(R.string.alert_message_nickname_error).show();
         }
@@ -227,7 +225,6 @@ public class HomeFragment extends Fragment {
         startDistance.setText("");
     }
 
-    // TODO : make fireBase auth and get current user
     public String getCurrentUser() {
         String nickname = "";
         if (currentUser != null) {
@@ -238,7 +235,7 @@ public class HomeFragment extends Fragment {
 
     public void setLastRide() {
 
-        DatabaseReference ref = fbDatabase.getReference("Rides");
+        DatabaseReference ref = fbDatabase.getReference("Rides" );
         Query lastRecord = ref.limitToLast(1);
         lastRecord.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -250,7 +247,6 @@ public class HomeFragment extends Fragment {
                     endDistance.setText("");
                     startDistance.setText(Long.toString(lastRide.endDistance));
                 }
-
                 swipeRefreshLastRide.setRefreshing(false);
             }
 

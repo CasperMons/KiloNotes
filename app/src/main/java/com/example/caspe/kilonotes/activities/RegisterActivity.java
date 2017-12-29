@@ -28,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText editConfirmPassword;
     Button registerUserBtn;
     ProgressBar regProgress;
+    Button goLoginBtn;
 
     FirebaseUser currentUser;
 
@@ -44,6 +45,13 @@ public class RegisterActivity extends AppCompatActivity {
                 saveNewUser();
             }
         });
+        goLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void declareLayoutElements() {
@@ -53,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerUserBtn = (Button) findViewById(R.id.reg_btn);
         regProgress = (ProgressBar) findViewById(R.id.register_progress);
         editNickname = (EditText) findViewById(R.id.edit_nick_name);
+        goLoginBtn = (Button)findViewById(R.id.btn_go_to_login);
     }
 
     private void saveNewUser() {
@@ -70,7 +79,6 @@ public class RegisterActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         setNickname();
                     }
-                    registerFeedback(task.isSuccessful());// TODO:  move to setNickname()
                 }
             });
         }
