@@ -10,6 +10,7 @@
     <color name="bg_edit_txt">#FFF</color>
     <color name="inner_gradient">#243d54</color>    <!-- Gradient -->
     <color name="outer_gradient">#10161d</color>    <!-- Gradient -->
+    <color name="bg_date_picker">#e7e9f8</color>
 
     <!-- Button -->
     <color name="btn_def">#ffa930</color>

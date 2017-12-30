@@ -1,5 +1,8 @@
 package com.example.caspe.kilonotes.fragments;
 
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -7,10 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.caspe.kilonotes.R;
+import com.example.caspe.kilonotes.activities.MainActivity;
 import com.example.caspe.kilonotes.adapters.RidesAdapter;
 import com.example.caspe.kilonotes.model.Ride;
 import com.google.firebase.database.DataSnapshot;
@@ -20,7 +27,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 
 
 public class HistoryFragment extends Fragment {
@@ -28,6 +37,8 @@ public class HistoryFragment extends Fragment {
     ListView historyList;
     ArrayList<Ride> lstRides;
     SwipeRefreshLayout swipeRefreshHistory;
+    TextView displayDate;
+    DatePickerDialog.OnDateSetListener setDateListener;
 
 
     final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
@@ -60,17 +71,43 @@ public class HistoryFragment extends Fragment {
                 setHistoryRides();
             }
         });
+
+        displayDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        getContext(),
+                        R.style.AppTheme,
+                        setDateListener,
+                        year, month, day);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.show();
+            }
+        });
+
+        setDateListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month++;
+                displayDate.setText(day + "-" + month + "-" + year);
+            }
+        };
         return view;
     }
 
     public void declareLayoutElements(View view) {
         historyList = (ListView) view.findViewById(R.id.history_list);
         swipeRefreshHistory = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
+        displayDate = (TextView) view.findViewById(R.id.display_date);
     }
 
     public void setHistoryRides() {
         DatabaseReference ref = fbDatabase.getReference("Rides");
-
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
