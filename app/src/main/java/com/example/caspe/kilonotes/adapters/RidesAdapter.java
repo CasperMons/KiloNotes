@@ -12,6 +12,7 @@ import com.example.caspe.kilonotes.model.Ride;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by caspe on 24-12-2017.
@@ -44,7 +45,7 @@ public class RidesAdapter extends ArrayAdapter<Ride> {
         TextView ridePrice = (TextView) convertView.findViewById(R.id.list_price);
 
         // Populate the data into the template view using the data object
-        date.setText(dateFormat.format(ride.date));
+        date.setText(dateFormat.format(new Date(ride.timestamp)));
         startDist.setText(Long.toString(ride.startDistance) + "");
         endDist.setText(Long.toString(ride.endDistance) + " Km");
         rideUser.setText(ride.userName);

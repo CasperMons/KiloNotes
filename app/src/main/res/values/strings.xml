@@ -6,7 +6,6 @@
     <string name="tab_title_new_ride">Niewe Rit</string>
     <string name="tab_title_history">Geschiedenis</string>
     <string name="title_register_user">Nieuwe gebruiker</string>
-
     <string name="driven_km">Gereden kilometers: </string>
     <string name="amount_km">0 KM</string>
     <string name="title_login">Inloggen</string>
@@ -14,12 +13,18 @@
     <string name="action_refresh">Vernieuwen</string>
     <string name="section_format">no section format</string>
 
+    <!-- Static texts -->
+    <string name="txt_filter_until">tot</string>
+
     <!-- Button texts-->
     <string name="btn_login">Log in</string>
     <string name="btn_save">Opslaan</string>
     <string name="btn_reg_user"><u>Nieuwe gebruiker?</u></string>
     <string name="btn_have_acc"><u>Al een account?</u></string>
     <string name="btn_register">Registreren</string>
+    <string name="btn_filter_date_start">Start datum</string>
+    <string name="btn_filter_date_end">Eind datum</string>
+    <string name="btn_filter_name">Filter naam</string>
 
     <!-- EditText hints -->
     <string name="edit_email_hint">Email-adres: </string>
@@ -56,6 +61,10 @@
     <string name="alert_message_nickname_empty">Bedenk een korte bijnaam of initialen en vul deze in</string>
     <string name="alert_title_nickname_error">Oeps...</string>
     <string name="alert_message_nickname_error">Er is iets misgegaan bij het ophalen van de bijnaam. Probeer het later nog eens.</string>
+    <string name="alert_title_filter_null">Geen resultaten</string>
+    <string name="alert_message_filter_null">Er zijn geen ritten gevonden in de database met deze filter of er is iets mis gegaan.</string>
+    <string name="alert_title_input_name">Naam </string>
+    <string name="alert_message_input_name">Vul de naam in om te zoeken: </string>
 
     <!-- Toasts -->
     <string name="toast_logout">Uitloggen...</string>

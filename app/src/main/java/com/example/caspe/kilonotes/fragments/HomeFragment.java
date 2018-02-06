@@ -26,10 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class HomeFragment extends Fragment {
@@ -189,7 +187,7 @@ public class HomeFragment extends Fragment {
         newRide.userName = getCurrentUser();
         newRide.startDistance = Integer.parseInt(startDistance.getText().toString());
         newRide.endDistance = Integer.parseInt(endDistance.getText().toString());
-        newRide.date = firebaseDateTime;
+        newRide.timestamp = firebaseDateTime.getTime();
         DatabaseReference ref = fbDatabase.getReference("Rides");
         if (!newRide.userName.equals("")) {
             ref.push().setValue(newRide, new DatabaseReference.CompletionListener() {
