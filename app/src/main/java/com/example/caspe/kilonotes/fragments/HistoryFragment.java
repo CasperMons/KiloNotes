@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.caspe.kilonotes.R;
@@ -120,7 +121,9 @@ public class HistoryFragment extends Fragment {
                 Calendar startDate = Calendar.getInstance();
                 startDate.set(year, month, day, 0, 0);
                 filterStartDate = startDate.getTime().getTime();
-                getHistoryByFilter();
+                if(filterEndDate!=0){
+                    getHistoryByFilter();
+                }
             }
         };
 
@@ -131,7 +134,9 @@ public class HistoryFragment extends Fragment {
                 Calendar endDate = Calendar.getInstance();
                 endDate.set(year, month, day, 23, 59, 59);
                 filterEndDate = endDate.getTime().getTime();
-                getHistoryByFilter();
+                if(filterStartDate!=0){
+                    getHistoryByFilter();
+                }
             }
         };
 
@@ -149,8 +154,10 @@ public class HistoryFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         filterName = input.getText().toString();
-                        btnFilterName.setText(filterName);
-                        getHistoryByFilter();
+                        if (!filterName.equals("")) {
+                            btnFilterName.setText(filterName);
+                            getHistoryByFilter();
+                        }
                     }
                 });
 
@@ -194,6 +201,7 @@ public class HistoryFragment extends Fragment {
     }
 
     public void getHistoryRides() {
+        swipeRefreshHistory.setRefreshing(true);
         DatabaseReference ref = fbDatabase.getReference("Rides");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -215,6 +223,7 @@ public class HistoryFragment extends Fragment {
     }
 
     public void getHistoryByFilter() {
+        swipeRefreshHistory.setRefreshing(true);
         DatabaseReference dbRef = fbDatabase.getReference("Rides");
         Query query = dbRef;
 
@@ -230,15 +239,16 @@ public class HistoryFragment extends Fragment {
 
                 ArrayList<Ride> filteredRides = new ArrayList<>();
                 for (DataSnapshot rideFromDb : dataSnapshot.getChildren()) {
-                    if(!filterName.equals("")) {
+                    if (!filterName.equals("")) {
                         // TODO: set name filter in query
-                        if(filterName.equals(rideFromDb.getValue(Ride.class).userName)){
+                        if (filterName.equals(rideFromDb.getValue(Ride.class).userName)) {
                             filteredRides.add(rideFromDb.getValue(Ride.class));
                         }
-                    }else{
+                    } else {
                         filteredRides.add(rideFromDb.getValue(Ride.class));
                     }
                 }
+                swipeRefreshHistory.setRefreshing(false);
                 updateHistoryListView(filteredRides);
             }
 

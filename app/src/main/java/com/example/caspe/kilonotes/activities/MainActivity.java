@@ -70,15 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
 
@@ -96,6 +87,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void navigateToPaymentsActivity(){
+        Intent intent = new Intent(MainActivity.this, PaymentsActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -108,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_logout:
                 logOut();
                 return true;
+            case R.id.action_payment:
+                navigateToPaymentsActivity();
         }
 
         return super.onOptionsItemSelected(item);
