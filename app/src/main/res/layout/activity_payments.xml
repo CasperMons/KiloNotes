@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
-    android:gravity="center"
-    tools:context="com.example.caspe.kilonotes.activities.PaymentsActivity">
+    android:orientation="vertical"
+    tools:context="com.example.caspe.kilonotes.activities.PaymentsActivity"
+    android:paddingTop="20dp">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/title_payments_user"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="test"
-        android:textColor="@color/txt_def"
-        />
+        android:text="Betalingen voor gebruikert"
+        android:gravity="center_horizontal"
+        android:textColor="@color/title_def"
+        android:textStyle="bold"
+        android:textSize="25sp"/>
 
     <ListView
+        android:layout_marginTop="10dp"
         android:id="@+id/list_payments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@color/list_divider"
-        android:dividerHeight="1dp"
-        >
-
-
+        android:dividerHeight="1dp">
     </ListView>
 
-</RelativeLayout>
+</LinearLayout>

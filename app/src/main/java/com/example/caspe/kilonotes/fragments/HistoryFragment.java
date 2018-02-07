@@ -15,9 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.example.caspe.kilonotes.R;
 import com.example.caspe.kilonotes.adapters.RidesAdapter;
 import com.example.caspe.kilonotes.model.Ride;
@@ -74,6 +72,7 @@ public class HistoryFragment extends Fragment {
             @Override
             public void onRefresh() {
                 Toast.makeText(getContext(), R.string.toast_refresh_history, Toast.LENGTH_SHORT).show();
+                clearFilters();
                 getHistoryRides();
             }
         });
@@ -130,7 +129,7 @@ public class HistoryFragment extends Fragment {
         filterDateEndListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                btnFilterDateEnd.setText(day + "-" + (month + 1) + "-" + day);
+                btnFilterDateEnd.setText(day + "-" + (month + 1) + "-" + year);
                 Calendar endDate = Calendar.getInstance();
                 endDate.set(year, month, day, 23, 59, 59);
                 filterEndDate = endDate.getTime().getTime();
@@ -157,6 +156,7 @@ public class HistoryFragment extends Fragment {
                         if (!filterName.equals("")) {
                             btnFilterName.setText(filterName);
                             getHistoryByFilter();
+                            // TODO: hidekeyboard
                         }
                     }
                 });
