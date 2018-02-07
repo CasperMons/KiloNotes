@@ -7,5 +7,22 @@
     android:gravity="center"
     tools:context="com.example.caspe.kilonotes.activities.PaymentsActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test"
+        android:textColor="@color/txt_def"
+        />
+
+    <ListView
+        android:id="@+id/list_payments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/list_divider"
+        android:dividerHeight="1dp"
+        >
+
+
+    </ListView>
 
 </RelativeLayout>

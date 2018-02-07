@@ -13,9 +13,12 @@
     <string name="menu_item_payment">Betalingen</string>
     <string name="action_refresh">Vernieuwen</string>
     <string name="section_format">no section format</string>
+    <string name="title_activity_payments">Betalingen</string>
+    <string name="title_activity_register">Registreren</string>
 
     <!-- Static texts -->
     <string name="txt_filter_until">tot</string>
+    <string name="checkbox_payed">betaald: </string>
 
     <!-- Button texts-->
     <string name="btn_login">Log in</string>
@@ -63,7 +66,7 @@
     <string name="alert_title_nickname_error">Oeps...</string>
     <string name="alert_message_nickname_error">Er is iets misgegaan bij het ophalen van de bijnaam. Probeer het later nog eens.</string>
     <string name="alert_title_filter_null">Geen resultaten</string>
-    <string name="alert_message_filter_null">Er zijn geen ritten gevonden in de database met deze filter of er is iets mis gegaan.</string>
+    <string name="alert_message_filter_null">Er zijn geen ritten gevonden in de database.</string>
     <string name="alert_title_input_name">Naam </string>
     <string name="alert_message_input_name">Vul een naam in om te zoeken: </string>
 
