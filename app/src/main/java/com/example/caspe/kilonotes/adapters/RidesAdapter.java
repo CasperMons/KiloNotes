@@ -21,7 +21,7 @@ import java.util.Date;
 public class RidesAdapter extends ArrayAdapter<Ride> {
 
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy hh:mm");
-    private static DecimalFormat doubleFormat = new DecimalFormat("##00.00");
+
     private static double fee = 0.15;
 
     public RidesAdapter(Context context, ArrayList<Ride> rides) {
@@ -50,7 +50,7 @@ public class RidesAdapter extends ArrayAdapter<Ride> {
         endDist.setText(Long.toString(ride.endDistance) + " Km");
         rideUser.setText(ride.userName);
         totalDist.setText(Long.toString(ride.endDistance - ride.startDistance) + " Km");
-        ridePrice.setText("€" + doubleFormat.format(calcPriceOfRide(ride)));
+        ridePrice.setText("€" + Ride.priceFormat.format(calcPriceOfRide(ride)));
 
         // Return the completed view to render on screen
         return convertView;

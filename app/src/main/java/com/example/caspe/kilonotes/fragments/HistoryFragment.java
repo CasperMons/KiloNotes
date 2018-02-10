@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.caspe.kilonotes.R;
 import com.example.caspe.kilonotes.adapters.RidesAdapter;
@@ -43,6 +44,7 @@ public class HistoryFragment extends Fragment {
     long filterEndDate;
     String filterName;
     ImageButton btnClearFilter;
+    TextView txtFilterPrice;
 
     final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
 
@@ -188,6 +190,7 @@ public class HistoryFragment extends Fragment {
         btnFilterDateEnd = (Button) view.findViewById(R.id.filter_date_end);
         btnFilterName = (Button) view.findViewById(R.id.filter_name);
         btnClearFilter = (ImageButton) view.findViewById(R.id.btn_clear_filter);
+        txtFilterPrice = (TextView)view.findViewById(R.id.price_of_filter);
     }
 
     public void clearFilters() {
@@ -197,6 +200,7 @@ public class HistoryFragment extends Fragment {
         btnFilterDateStart.setText(R.string.btn_filter_date_start);
         btnFilterDateEnd.setText(R.string.btn_filter_date_end);
         btnFilterName.setText(R.string.btn_filter_name);
+        txtFilterPrice.setText("");
         getHistoryRides();
     }
 
@@ -248,6 +252,9 @@ public class HistoryFragment extends Fragment {
                         filteredRides.add(rideFromDb.getValue(Ride.class));
                     }
                 }
+                if(!filterName.equals("") && filterStartDate > 0 && filterEndDate > 0){
+                    calculateFee(filteredRides);
+                }
                 swipeRefreshHistory.setRefreshing(false);
                 updateHistoryListView(filteredRides);
             }
@@ -271,5 +278,16 @@ public class HistoryFragment extends Fragment {
                     .setIcon(R.drawable.kilo_note_logo_red)
                     .show();
         }
+    }
+
+    private void calculateFee(ArrayList<Ride> lstRides){
+        double price = 0;
+        long drivenKm = 0;
+        for (Ride ride : lstRides) {
+            drivenKm = drivenKm + (ride.endDistance - ride.startDistance);
+        }
+        price = drivenKm * Ride.RIDE_PRICE;
+
+        txtFilterPrice.setText("€" + Ride.priceFormat.format(price));
     }
 }
