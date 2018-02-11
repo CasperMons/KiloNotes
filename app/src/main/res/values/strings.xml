@@ -19,6 +19,8 @@
     <!-- Static texts -->
     <string name="txt_filter_until">tot</string>
     <string name="checkbox_payed">betaald: </string>
+    <string name="easter_egg">Kiekeboe!</string>
+    <string name="price_of_filter">Prijs: </string>
 
     <!-- Button texts-->
     <string name="btn_login">Log in</string>

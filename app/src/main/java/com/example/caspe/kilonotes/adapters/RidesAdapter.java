@@ -20,7 +20,7 @@ import java.util.Date;
 
 public class RidesAdapter extends ArrayAdapter<Ride> {
 
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy hh:mm");
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy HH:mm");
 
     private static double fee = 0.15;
 

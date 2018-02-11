@@ -1,5 +1,6 @@
 package com.example.caspe.kilonotes.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -10,10 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +48,7 @@ public class HistoryFragment extends Fragment {
     String filterName;
     ImageButton btnClearFilter;
     TextView txtFilterPrice;
+    LinearLayout layoutCalcPrice;
 
     final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
 
@@ -158,7 +162,9 @@ public class HistoryFragment extends Fragment {
                         if (!filterName.equals("")) {
                             btnFilterName.setText(filterName);
                             getHistoryByFilter();
-                            // TODO: hidekeyboard
+                            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+
                         }
                     }
                 });
@@ -191,6 +197,7 @@ public class HistoryFragment extends Fragment {
         btnFilterName = (Button) view.findViewById(R.id.filter_name);
         btnClearFilter = (ImageButton) view.findViewById(R.id.btn_clear_filter);
         txtFilterPrice = (TextView)view.findViewById(R.id.price_of_filter);
+        layoutCalcPrice = (LinearLayout)view.findViewById(R.id.price_filter_layout);
     }
 
     public void clearFilters() {
@@ -201,6 +208,11 @@ public class HistoryFragment extends Fragment {
         btnFilterDateEnd.setText(R.string.btn_filter_date_end);
         btnFilterName.setText(R.string.btn_filter_name);
         txtFilterPrice.setText("");
+
+        ViewGroup.LayoutParams params = layoutCalcPrice.getLayoutParams();
+        params.height = 0;
+        layoutCalcPrice.setLayoutParams(params);
+
         getHistoryRides();
     }
 
@@ -253,7 +265,7 @@ public class HistoryFragment extends Fragment {
                     }
                 }
                 if(!filterName.equals("") && filterStartDate > 0 && filterEndDate > 0){
-                    calculateFee(filteredRides);
+                    setFee(filteredRides);
                 }
                 swipeRefreshHistory.setRefreshing(false);
                 updateHistoryListView(filteredRides);
@@ -280,7 +292,7 @@ public class HistoryFragment extends Fragment {
         }
     }
 
-    private void calculateFee(ArrayList<Ride> lstRides){
+    private void setFee(ArrayList<Ride> lstRides){
         double price = 0;
         long drivenKm = 0;
         for (Ride ride : lstRides) {
@@ -289,5 +301,8 @@ public class HistoryFragment extends Fragment {
         price = drivenKm * Ride.RIDE_PRICE;
 
         txtFilterPrice.setText("€" + Ride.priceFormat.format(price));
+        ViewGroup.LayoutParams params = layoutCalcPrice.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        layoutCalcPrice.setLayoutParams(params);
     }
 }

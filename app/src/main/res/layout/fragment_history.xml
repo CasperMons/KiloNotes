@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -38,8 +38,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_toEndOf="@+id/filter_date_start"
-                    android:layout_toRightOf="@+id/filter_date_start"
                     android:gravity="center_vertical"
                     android:text="@string/txt_filter_until"
                     android:textColor="@color/txt_def"
@@ -50,8 +48,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_marginRight="10dp"
-                    android:layout_toEndOf="@+id/txt_until"
-                    android:layout_toRightOf="@+id/txt_until"
                     android:background="@drawable/rounded_corners"
                     android:backgroundTint="@color/btn_def"
                     android:text="@string/btn_filter_date_end"
@@ -63,7 +59,6 @@
                     android:id="@+id/filter_name"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
-                    android:layout_toRightOf="@id/filter_date_end"
                     android:background="@drawable/rounded_corners"
                     android:backgroundTint="@color/btn_def"
                     android:text="@string/btn_filter_name"
@@ -71,28 +66,42 @@
                     android:textColor="@color/btn_txt_def"
                     android:layout_marginRight="5sp"/>
 
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:id="@+id/price_of_filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/filter_name"
-                    android:text="test"
-                    android:textColor="@color/txt_def"
-                    android:textSize="15sp" />
+
 
 
                 <ImageButton
                     android:id="@+id/btn_clear_filter"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_alignParentRight="true"
                     android:adjustViewBounds="true"
                     android:background="@color/bg_transparent"
                     android:scaleType="fitCenter"
                     android:src="@drawable/delete" />
 
-            </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/price_filter_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:text="@string/price_of_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/txt_def"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/price_of_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/txt_def"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
 
             <ListView
                 android:id="@+id/history_list"
