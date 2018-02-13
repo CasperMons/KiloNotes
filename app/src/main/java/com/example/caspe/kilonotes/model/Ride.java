@@ -13,7 +13,8 @@ public class Ride implements Comparable<Ride> {
     public static DecimalFormat priceFormat = new DecimalFormat("##00.00");
 
 
-    public String userName; // Todo: check if firebase auth uses string or int id's
+    public String userName;
+    public String userId;
     public long startDistance;
     public long endDistance;
     public long timestamp;

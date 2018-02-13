@@ -15,6 +15,7 @@
     <string name="section_format">no section format</string>
     <string name="title_activity_payments">Betalingen</string>
     <string name="title_activity_register">Registreren</string>
+    <string name="payments_for">Betalingen voor</string>
 
     <!-- Static texts -->
     <string name="txt_filter_until">tot</string>

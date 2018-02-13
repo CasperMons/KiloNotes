@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.example.caspe.kilonotes.R;
 import com.example.caspe.kilonotes.model.Ride;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;

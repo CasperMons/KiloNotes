@@ -5,26 +5,25 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
     android:orientation="vertical"
-    tools:context="com.example.caspe.kilonotes.activities.PaymentsActivity"
-    android:paddingTop="20dp">
+    android:paddingTop="20dp"
+    tools:context="com.example.caspe.kilonotes.activities.PaymentsActivity">
 
     <TextView
-        android:id="@+id/title_payments_user"
+        android:id="@+id/txt_title_payments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Betalingen voor gebruikert"
         android:gravity="center_horizontal"
+        android:text=""
         android:textColor="@color/title_def"
-        android:textStyle="bold"
-        android:textSize="25sp"/>
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
     <ListView
-        android:layout_marginTop="10dp"
         android:id="@+id/list_payments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:divider="@color/list_divider"
-        android:dividerHeight="1dp">
-    </ListView>
+        android:dividerHeight="1dp"></ListView>
 
 </LinearLayout>

@@ -186,7 +186,8 @@ public class HomeFragment extends Fragment {
         // TODO: get firebase timestamp
         Date firebaseDateTime = new Date();
         Ride newRide = new Ride();
-        newRide.userName = getCurrentUser();
+        newRide.userName = currentUser.getDisplayName();
+        newRide.userId = currentUser.getUid();
         newRide.startDistance = Integer.parseInt(startDistance.getText().toString());
         newRide.endDistance = Integer.parseInt(endDistance.getText().toString());
         newRide.timestamp = firebaseDateTime.getTime();
@@ -223,14 +224,6 @@ public class HomeFragment extends Fragment {
     private void clearFields() {
         endDistance.setText("");
         startDistance.setText("");
-    }
-
-    public String getCurrentUser() {
-        String nickname = "";
-        if (currentUser != null) {
-            nickname = currentUser.getDisplayName();
-        }
-        return nickname;
     }
 
     public void setLastRide() {
