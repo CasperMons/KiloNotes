@@ -50,6 +50,11 @@ public class RidesAdapter extends ArrayAdapter<Ride> {
         date.setText(dateFormat.format(new Date(ride.timestamp)));
         startDist.setText(Long.toString(ride.startDistance) + "");
         endDist.setText(Long.toString(ride.endDistance) + " Km");
+
+        if(ride.userName.equals(Ride.UNREGISTERED)){
+            rideUser.setTextColor(convertView.getResources().getColor(R.color.txt_unregistered));
+        }
+
         rideUser.setText(ride.userName);
         totalDist.setText(Long.toString(ride.endDistance - ride.startDistance) + " Km");
         ridePrice.setText("€" + Ride.priceFormat.format(calcPriceOfRide(ride)));

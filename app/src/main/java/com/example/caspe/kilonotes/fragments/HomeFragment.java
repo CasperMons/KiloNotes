@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -33,10 +34,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Date;
 
 public class HomeFragment extends Fragment {
-    // Declare Layout elements
+    // Define Layout elements
     TextView drivenDistance;
     EditText startDistance;
     EditText endDistance;
+    CheckBox checkBoxUnregistered;
     Button saveBtn;
     ProgressBar progressBar;
     Ride lastRide;
@@ -148,6 +150,7 @@ public class HomeFragment extends Fragment {
         drivenDistance = (TextView) view.findViewById(R.id.driven_km_txt);
         startDistance = (EditText) view.findViewById(R.id.edit_start_dist);
         endDistance = (EditText) view.findViewById(R.id.edit_end_dist);
+        checkBoxUnregistered = (CheckBox)view.findViewById(R.id.checkbox_unregistered_ride);
         saveBtn = (Button) view.findViewById(R.id.save_btn);
         progressBar = (ProgressBar) view.findViewById(R.id.save_progress);
         swipeRefreshLastRide = (SwipeRefreshLayout) view.findViewById(R.id.refresh_last_ride);
@@ -186,8 +189,15 @@ public class HomeFragment extends Fragment {
         // TODO: get firebase timestamp
         Date firebaseDateTime = new Date();
         Ride newRide = new Ride();
-        newRide.userName = currentUser.getDisplayName();
-        newRide.userId = currentUser.getUid();
+
+        if(checkBoxUnregistered.isChecked()){
+            newRide.userName = Ride.UNREGISTERED;
+            newRide.userId = "";
+        }else{
+            newRide.userName = currentUser.getDisplayName();
+            newRide.userId = currentUser.getUid();
+        }
+
         newRide.startDistance = Integer.parseInt(startDistance.getText().toString());
         newRide.endDistance = Integer.parseInt(endDistance.getText().toString());
         newRide.timestamp = firebaseDateTime.getTime();

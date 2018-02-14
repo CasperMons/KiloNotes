@@ -74,6 +74,16 @@
                     android:textColorHint="@color/txt_hint"
                     android:textSize="20sp" />
 
+                <CheckBox
+                    android:id="@+id/checkbox_unregistered_ride"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:buttonTint="@color/checkbox_tint"
+                    android:gravity="center"
+                    android:text="@string/checkbox_unregistered"
+                    android:textColor="@color/txt_def" />
+
                 <Button
                     android:id="@+id/save_btn"
                     android:layout_width="250dp"

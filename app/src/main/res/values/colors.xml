@@ -16,13 +16,14 @@
     <!-- Button -->
     <color name="btn_def">#ffa930</color>
     <color name="btn_txt_def">#10161d</color>
-    <color name="btn_register">#FF140D</color>
+    <color name="checkbox_tint">#e7e9f8</color>
 
     <!-- Texts -->
     <color name="txt_def">#e7e9f8</color>
     <color name="title_def">#ffa930</color>
     <color name="txt_edit_txt">#1c3041</color>
     <color name="txt_hint">#8da5ba</color>
+    <color name="txt_unregistered">#FF140D</color>
 
     <!-- ListView -->
     <color name="list_divider">#e7e9f8</color>

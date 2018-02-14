@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -20,7 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.caspe.kilonotes.R;
+import com.example.caspe.kilonotes.activities.MainActivity;
 import com.example.caspe.kilonotes.adapters.RidesAdapter;
 import com.example.caspe.kilonotes.model.Ride;
 import com.google.firebase.database.DataSnapshot;
@@ -126,7 +129,7 @@ public class HistoryFragment extends Fragment {
                 Calendar startDate = Calendar.getInstance();
                 startDate.set(year, month, day, 0, 0);
                 filterStartDate = startDate.getTime().getTime();
-                if(filterEndDate!=0){
+                if (filterEndDate != 0) {
                     getHistoryByFilter();
                 }
             }
@@ -139,7 +142,7 @@ public class HistoryFragment extends Fragment {
                 Calendar endDate = Calendar.getInstance();
                 endDate.set(year, month, day, 23, 59, 59);
                 filterEndDate = endDate.getTime().getTime();
-                if(filterStartDate!=0){
+                if (filterStartDate != 0) {
                     getHistoryByFilter();
                 }
             }
@@ -186,6 +189,26 @@ public class HistoryFragment extends Fragment {
                 clearFilters();
             }
         });
+
+        historyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final Ride clickedRide = (Ride) parent.getItemAtPosition(position);
+                if (clickedRide.userName.equals(Ride.UNREGISTERED)) {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle(R.string.alert_title_claim_ride)
+                            .setMessage(R.string.alert_message_claim_ride)
+                            .setIcon(R.drawable.kilo_note_logo)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    claimRide(clickedRide);
+                                }
+                            }).setNegativeButton(android.R.string.no, null).show();
+                }
+            }
+        });
+
         return view;
     }
 
@@ -196,8 +219,8 @@ public class HistoryFragment extends Fragment {
         btnFilterDateEnd = (Button) view.findViewById(R.id.filter_date_end);
         btnFilterName = (Button) view.findViewById(R.id.filter_name);
         btnClearFilter = (ImageButton) view.findViewById(R.id.btn_clear_filter);
-        txtFilterPrice = (TextView)view.findViewById(R.id.price_of_filter);
-        layoutCalcPrice = (LinearLayout)view.findViewById(R.id.price_filter_layout);
+        txtFilterPrice = (TextView) view.findViewById(R.id.price_of_filter);
+        layoutCalcPrice = (LinearLayout) view.findViewById(R.id.price_filter_layout);
     }
 
     public void clearFilters() {
@@ -264,7 +287,7 @@ public class HistoryFragment extends Fragment {
                         filteredRides.add(rideFromDb.getValue(Ride.class));
                     }
                 }
-                if(!filterName.equals("") && filterStartDate > 0 && filterEndDate > 0){
+                if (!filterName.equals("") && filterStartDate > 0 && filterEndDate > 0) {
                     setFee(filteredRides);
                 }
                 swipeRefreshHistory.setRefreshing(false);
@@ -292,8 +315,8 @@ public class HistoryFragment extends Fragment {
         }
     }
 
-    private void setFee(ArrayList<Ride> lstRides){
-        double price = 0;
+    private void setFee(ArrayList<Ride> lstRides) {
+        double price;
         long drivenKm = 0;
         for (Ride ride : lstRides) {
             drivenKm = drivenKm + (ride.endDistance - ride.startDistance);
@@ -304,5 +327,27 @@ public class HistoryFragment extends Fragment {
         ViewGroup.LayoutParams params = layoutCalcPrice.getLayoutParams();
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         layoutCalcPrice.setLayoutParams(params);
+    }
+
+    private void claimRide(Ride rideToClaim) {
+        DatabaseReference ref = fbDatabase.getReference();
+        Query query = ref.orderByChild("timestamp").equalTo(Long.toString(rideToClaim.timestamp));
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    if(dataSnapshot.getChildrenCount() == 1){
+                        Ride ride = dataSnapshot.getValue(Ride.class);
+                    }else{
+                        // fout
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
