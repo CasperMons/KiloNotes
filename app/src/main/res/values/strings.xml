@@ -36,6 +36,7 @@
     <string name="btn_filter_date_start">Start datum</string>
     <string name="btn_filter_date_end">Eind datum</string>
     <string name="btn_filter_name">Filter naam</string>
+    <string name="btn_no">Nee</string>
 
     <!-- EditText hints -->
     <string name="edit_email_hint">Email-adres: </string>
@@ -78,6 +79,8 @@
     <string name="alert_message_input_name">Vul een naam in om te zoeken: </string>
     <string name="alert_title_claim_ride">Rit claimen</string>
     <string name="alert_message_claim_ride">Heeft u deze rit gereden?</string>
+    <string name="alert_message_claimed">De rit is opgeslagen op uw naam</string>
+    <string name="alert_message_claim_failed">Kon rit niet opslaan onder uw naam, probeer het later nog eens</string>
 
     <!-- Toasts -->
     <string name="toast_logout">Uitloggen...</string>

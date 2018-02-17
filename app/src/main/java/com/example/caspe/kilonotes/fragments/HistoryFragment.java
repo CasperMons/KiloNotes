@@ -26,6 +26,9 @@ import com.example.caspe.kilonotes.R;
 import com.example.caspe.kilonotes.activities.MainActivity;
 import com.example.caspe.kilonotes.adapters.RidesAdapter;
 import com.example.caspe.kilonotes.model.Ride;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +39,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class HistoryFragment extends Fragment {
 
@@ -52,6 +58,7 @@ public class HistoryFragment extends Fragment {
     ImageButton btnClearFilter;
     TextView txtFilterPrice;
     LinearLayout layoutCalcPrice;
+    FirebaseUser currentUser;
 
     final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
 
@@ -67,6 +74,7 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     @Override
@@ -199,12 +207,12 @@ public class HistoryFragment extends Fragment {
                             .setTitle(R.string.alert_title_claim_ride)
                             .setMessage(R.string.alert_message_claim_ride)
                             .setIcon(R.drawable.kilo_note_logo)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            .setPositiveButton(R.string.alert_confirm_yes, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     claimRide(clickedRide);
                                 }
-                            }).setNegativeButton(android.R.string.no, null).show();
+                            }).setNegativeButton(R.string.btn_no, null).show();
                 }
             }
         });
@@ -279,7 +287,6 @@ public class HistoryFragment extends Fragment {
                 ArrayList<Ride> filteredRides = new ArrayList<>();
                 for (DataSnapshot rideFromDb : dataSnapshot.getChildren()) {
                     if (!filterName.equals("")) {
-                        // TODO: set name filter in query
                         if (filterName.equals(rideFromDb.getValue(Ride.class).userName)) {
                             filteredRides.add(rideFromDb.getValue(Ride.class));
                         }
@@ -329,18 +336,41 @@ public class HistoryFragment extends Fragment {
         layoutCalcPrice.setLayoutParams(params);
     }
 
-    private void claimRide(Ride rideToClaim) {
-        DatabaseReference ref = fbDatabase.getReference();
-        Query query = ref.orderByChild("timestamp").equalTo(Long.toString(rideToClaim.timestamp));
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void claimRide(final Ride rideToClaim) {
+
+        final DatabaseReference ref = fbDatabase.getReference("Rides");
+        ref.orderByChild("timestamp").equalTo(rideToClaim.timestamp).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    if(dataSnapshot.getChildrenCount() == 1){
-                        Ride ride = dataSnapshot.getValue(Ride.class);
-                    }else{
-                        // fout
-                    }
+                String key = "";
+
+                rideToClaim.userName = currentUser.getDisplayName();
+                rideToClaim.userId = currentUser.getUid();
+
+                for (DataSnapshot snap : dataSnapshot.getChildren()) {
+                    key = snap.getKey();
+                }
+                if (!key.equals("")) {
+                    Map<String, Object> childUpdates = new HashMap<>();
+                    childUpdates.put(key, rideToClaim);
+                    ref.updateChildren(childUpdates, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                            if (databaseError == null) {
+                                new AlertDialog.Builder(getContext())
+                                        .setTitle(R.string.alert_title_claim_ride)
+                                        .setMessage(R.string.alert_message_claimed)
+                                        .setIcon(R.drawable.kilo_note_logo_green).show();
+                                getHistoryRides();
+
+                            } else {
+                                new AlertDialog.Builder(getContext())
+                                        .setTitle(R.string.alert_title_claim_ride)
+                                        .setMessage(R.string.alert_message_claim_failed)
+                                        .setIcon(R.drawable.kilo_note_logo_red).show();
+                            }
+                        }
+                    });
                 }
             }
 
