@@ -5,103 +5,102 @@
     android:orientation="vertical"
     tools:context="com.example.caspe.kilonotes.fragments.HistoryFragment">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/filter_date_start"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/btn_def"
+                android:text="@string/btn_filter_date_start"
+                android:textAllCaps="false"
+                android:textColor="@color/btn_txt_def" />
+
+            <TextView
+                android:id="@+id/txt_until"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:text="@string/txt_filter_until"
+                android:textColor="@color/txt_def"
+                android:textSize="15sp" />
 
-                <Button
-                    android:id="@+id/filter_date_start"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="@color/btn_def"
-                    android:text="@string/btn_filter_date_start"
-                    android:textAllCaps="false"
-                    android:textColor="@color/btn_txt_def" />
-
-                <TextView
-                    android:id="@+id/txt_until"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/txt_filter_until"
-                    android:textColor="@color/txt_def"
-                    android:textSize="15sp" />
-
-                <Button
-                    android:id="@+id/filter_date_end"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="@color/btn_def"
-                    android:text="@string/btn_filter_date_end"
-                    android:textAllCaps="false"
-                    android:textColor="@color/btn_txt_def" />
+            <Button
+                android:id="@+id/filter_date_end"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/btn_def"
+                android:text="@string/btn_filter_date_end"
+                android:textAllCaps="false"
+                android:textColor="@color/btn_txt_def" />
 
 
-                <Button
-                    android:id="@+id/filter_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="@color/btn_def"
-                    android:text="@string/btn_filter_name"
-                    android:textAllCaps="false"
-                    android:textColor="@color/btn_txt_def"
-                    android:layout_marginRight="5sp"/>
+            <Button
+                android:id="@+id/filter_name"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginRight="5sp"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/btn_def"
+                android:text="@string/btn_filter_name"
+                android:textAllCaps="false"
+                android:textColor="@color/btn_txt_def" />
 
 
+            <ImageButton
+                android:id="@+id/btn_clear_filter"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:adjustViewBounds="true"
+                android:background="@color/bg_transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/delete" />
 
+        </LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/btn_clear_filter"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:adjustViewBounds="true"
-                    android:background="@color/bg_transparent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/delete" />
+        <LinearLayout
+            android:id="@+id/price_filter_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
-            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price_of_filter"
+                android:textColor="@color/txt_def"
+                android:textSize="15sp" />
 
-            <LinearLayout
-                android:id="@+id/price_filter_layout"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/price_of_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/txt_def"
+                android:textSize="15sp" />
 
-                <TextView
-                    android:text="@string/price_of_filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/txt_def"
-                    android:textSize="15sp" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/price_of_filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/txt_def"
-                    android:textSize="15sp" />
-
-            </LinearLayout>
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <ListView
                 android:id="@+id/history_list"
@@ -109,8 +108,8 @@
                 android:layout_height="match_parent"
                 android:divider="@color/list_divider"
                 android:dividerHeight="2dp" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
 
-        </LinearLayout>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>
