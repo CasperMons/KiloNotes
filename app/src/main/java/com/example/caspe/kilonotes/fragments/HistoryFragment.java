@@ -165,6 +165,8 @@ public class HistoryFragment extends Fragment {
                         .setMessage(R.string.alert_message_input_name)
                         .setIcon(R.drawable.kilo_note_logo);
                 final EditText input = new EditText(getContext());
+                input.setHint(R.string.edit_nick_name);
+
                 nameInputDialog.setView(input);
 
                 nameInputDialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -181,7 +183,7 @@ public class HistoryFragment extends Fragment {
                     }
                 });
 
-                nameInputDialog.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                nameInputDialog.setNegativeButton(R.string.btn_txt_cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();

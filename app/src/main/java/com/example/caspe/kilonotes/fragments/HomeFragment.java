@@ -247,8 +247,8 @@ public class HomeFragment extends Fragment {
                     lastRide = ds.getValue(Ride.class);
                 }
                 if (lastRide != null) {
-                    endDistance.setText("");
                     startDistance.setText(Long.toString(lastRide.endDistance));
+                    endDistance.setText(Long.toString(lastRide.endDistance).substring(0, 2));
                 }
                 swipeRefreshLastRide.setRefreshing(false);
             }

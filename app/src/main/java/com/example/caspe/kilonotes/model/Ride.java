@@ -10,7 +10,7 @@ import java.text.DecimalFormat;
 
 public class Ride implements Comparable<Ride> {
     public static final double RIDE_PRICE = 0.15;
-    public static DecimalFormat priceFormat = new DecimalFormat("##00.00");
+    public static DecimalFormat priceFormat = new DecimalFormat("##0.00");
     public static final String UNREGISTERED = "N/A";
 
 

@@ -37,6 +37,7 @@
     <string name="btn_filter_date_end">Eind datum</string>
     <string name="btn_filter_name">Filter naam</string>
     <string name="btn_no">Nee</string>
+    <string name="btn_txt_cancel">Annuleren</string>
 
     <!-- EditText hints -->
     <string name="edit_email_hint">Email-adres: </string>
@@ -75,7 +76,7 @@
     <string name="alert_message_nickname_error">Er is iets misgegaan bij het ophalen van de bijnaam. Probeer het later nog eens.</string>
     <string name="alert_title_filter_null">Geen resultaten</string>
     <string name="alert_message_filter_null">Er zijn geen ritten gevonden in de database.</string>
-    <string name="alert_title_input_name">Naam </string>
+    <string name="alert_title_input_name">Filter naam</string>
     <string name="alert_message_input_name">Vul een naam in om te zoeken: </string>
     <string name="alert_title_claim_ride">Rit claimen</string>
     <string name="alert_message_claim_ride">Heeft u deze rit gereden?</string>
