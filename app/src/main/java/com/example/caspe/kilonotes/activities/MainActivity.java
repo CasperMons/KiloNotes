@@ -26,6 +26,7 @@ import com.example.caspe.kilonotes.R;
 import com.example.caspe.kilonotes.fragments.HistoryFragment;
 import com.example.caspe.kilonotes.fragments.HomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
     /**
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+    private static String USERS_GENERAL_TOPIC = "kiloNotesUsers";
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
     TextView txtEasterEgg;
 
@@ -49,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        FirebaseMessaging.getInstance().subscribeToTopic(USERS_GENERAL_TOPIC);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
