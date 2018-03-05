@@ -253,7 +253,7 @@ public class HistoryFragment extends Fragment {
     public void getHistoryRides() {
         swipeRefreshHistory.setRefreshing(true);
         DatabaseReference ref = fbDatabase.getReference("Rides");
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.limitToLast(100).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<Ride> lstRidesFromDb = new ArrayList<>();
