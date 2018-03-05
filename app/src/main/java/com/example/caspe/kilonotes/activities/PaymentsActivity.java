@@ -49,7 +49,7 @@ public class PaymentsActivity extends AppCompatActivity {
                 DatabaseReference ref = fbDatabase.getReference("TestRides");
                 Ride newRide = new Ride();
                 newRide.userId = currentUser.getUid();
-                newRide.userName = currentUser.getDisplayName();
+                newRide.userName = "N/A";
                 newRide.startDistance = 10;
                 newRide.endDistance = 20;
                 newRide.timestamp = new Date().getTime();

@@ -192,7 +192,7 @@ public class HomeFragment extends Fragment {
 
         if(checkBoxUnregistered.isChecked()){
             newRide.userName = Ride.UNREGISTERED;
-            newRide.userId = "";
+            newRide.userId = currentUser.getUid();
         }else{
             newRide.userName = currentUser.getDisplayName();
             newRide.userId = currentUser.getUid();
