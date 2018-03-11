@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -24,12 +23,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.caspe.kilonotes.R;
-import com.example.caspe.kilonotes.activities.MainActivity;
 import com.example.caspe.kilonotes.adapters.RidesAdapter;
 import com.example.caspe.kilonotes.model.Ride;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,7 +38,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class HistoryFragment extends Fragment {
@@ -178,7 +174,6 @@ public class HistoryFragment extends Fragment {
                             getHistoryByFilter();
                             InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-
                         }
                     }
                 });

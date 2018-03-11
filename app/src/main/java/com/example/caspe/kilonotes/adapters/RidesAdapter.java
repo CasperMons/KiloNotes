@@ -24,8 +24,6 @@ public class RidesAdapter extends ArrayAdapter<Ride> {
 
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy HH:mm");
 
-    private static double fee = 0.15;
-
     public RidesAdapter(Context context, ArrayList<Ride> rides) {
         super(context, 0, rides);
     }
@@ -53,6 +51,8 @@ public class RidesAdapter extends ArrayAdapter<Ride> {
 
         if(ride.userName.equals(Ride.UNREGISTERED)){
             rideUser.setTextColor(convertView.getResources().getColor(R.color.txt_unregistered));
+        }else{
+            rideUser.setTextColor(convertView.getResources().getColor(R.color.title_def));
         }
 
         rideUser.setText(ride.userName);
@@ -64,9 +64,7 @@ public class RidesAdapter extends ArrayAdapter<Ride> {
     }
 
     private double calcPriceOfRide(Ride ride) {
-        double price = 0.00;
-        price = (ride.endDistance - ride.startDistance) * fee;
-        return price;
+        return ((ride.endDistance - ride.startDistance) * Ride.RIDE_PRICE);
     }
 
 }
