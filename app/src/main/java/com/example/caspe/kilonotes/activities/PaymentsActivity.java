@@ -29,7 +29,6 @@ public class PaymentsActivity extends AppCompatActivity {
     Button btnTest;
     TextView txtTitle;
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    Button testBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
