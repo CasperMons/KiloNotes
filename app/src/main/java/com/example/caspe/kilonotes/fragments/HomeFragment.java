@@ -183,8 +183,6 @@ public class HomeFragment extends Fragment {
 
     public void saveRide() {
         progressBar.setVisibility(View.VISIBLE);
-        // TODO: Save time in firebase with trigger
-        Date firebaseDateTime = new Date();
         Ride newRide = new Ride();
 
         if(checkBoxUnregistered.isChecked()){
@@ -197,7 +195,7 @@ public class HomeFragment extends Fragment {
 
         newRide.startDistance = Integer.parseInt(startDistance.getText().toString());
         newRide.endDistance = Integer.parseInt(endDistance.getText().toString());
-        newRide.timestamp = firebaseDateTime.getTime();
+        newRide.timestamp = 0; // Will be filled by Firebase by Realtime DB trigger
         DatabaseReference ref = fbDatabase.getReference("Rides");
         if (!newRide.userName.equals("")) {
             ref.push().setValue(newRide, new DatabaseReference.CompletionListener() {

@@ -1,8 +1,6 @@
 package com.example.caspe.kilonotes.operations;
 
 import android.util.Log;
-import android.widget.Toast;
-
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 

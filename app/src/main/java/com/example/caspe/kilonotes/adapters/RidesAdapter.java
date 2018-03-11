@@ -63,7 +63,7 @@ public class RidesAdapter extends ArrayAdapter<Ride> {
         return convertView;
     }
 
-    public double calcPriceOfRide(Ride ride) {
+    private double calcPriceOfRide(Ride ride) {
         double price = 0.00;
         price = (ride.endDistance - ride.startDistance) * fee;
         return price;
