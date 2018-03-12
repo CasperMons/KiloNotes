@@ -9,20 +9,26 @@
     <string name="driven_km">Gereden kilometers: </string>
     <string name="amount_km">0 KM</string>
     <string name="title_login">Inloggen</string>
-    <string name="menu_item_logout">Uitloggen</string>
-    <string name="menu_item_payment">Betalingen</string>
     <string name="action_refresh">Vernieuwen</string>
     <string name="section_format">no section format</string>
     <string name="title_activity_payments">Betalingen</string>
     <string name="title_activity_register">Registreren</string>
     <string name="payments_for">Betalingen voor</string>
+    <string name="title_activity_about">About KiloNotes</string>
+
+    <!-- Menu items -->
+    <string name="menu_item_logout">Uitloggen</string>
+    <string name="menu_item_payment">Betalingen</string>
+    <string name="menu_item_about">Over</string>
 
     <!-- Static texts -->
     <string name="txt_filter_until">tot</string>
     <string name="easter_egg">Kiekeboe!</string>
     <string name="price_of_filter">Prijs: </string>
     <string name="txt_unregistered">N/A</string>
-
+    <string name="txt_version">Versie: </string>
+    <string name="txt_developed_by">Ontwikkeld door: Casper Mons</string>
+    
     <!-- Checkbox texts -->
     <string name="checkbox_payed">betaald: </string>
     <string name="checkbox_unregistered"> Niet geregistreerd</string>
@@ -38,6 +44,7 @@
     <string name="btn_filter_name">Filter naam</string>
     <string name="btn_no">Nee</string>
     <string name="btn_txt_cancel">Annuleren</string>
+    <string name="btn_check_updates"><u>Check updates</u></string>
 
     <!-- EditText hints -->
     <string name="edit_email_hint">Email-adres: </string>

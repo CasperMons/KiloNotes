@@ -26,22 +26,24 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".activities.RegisterActivity"
-            android:label="@string/title_activity_register"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:label="@string/title_activity_register" />
         <activity
             android:name=".activities.PaymentsActivity"
-            android:label="@string/title_activity_payments">
-        </activity>
+            android:label="@string/title_activity_payments"></activity>
 
         <service android:name=".operations.MessageHelper">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
+        <activity
+            android:name=".activities.AboutActivity"
+            android:label="@string/title_activity_about"
+            />
     </application>
-
-
 
 </manifest>

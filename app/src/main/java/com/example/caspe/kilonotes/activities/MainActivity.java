@@ -107,6 +107,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void navigateToAboutActivity(){
+        Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -121,6 +126,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_payment:
                 navigateToPaymentsActivity();
+                return true;
+            case R.id.action_about:
+                navigateToAboutActivity();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
