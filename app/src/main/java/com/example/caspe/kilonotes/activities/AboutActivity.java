@@ -34,14 +34,7 @@ public class AboutActivity extends AppCompatActivity {
         imgLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                float currentRotation = imgLogo.getRotation();
-                final RotateAnimation rotateAnim = new RotateAnimation(
-                        currentRotation, (currentRotation + 360), imgLogo.getWidth()/2, imgLogo.getHeight()/2);
-
-                rotateAnim.setDuration(1000); // Use 0 ms to rotate instantly
-                rotateAnim.setFillAfter(true); // Must be true or the animation will reset
-
-                imgLogo.startAnimation(rotateAnim);
+                rotateLogo();
             }
         });
     }
@@ -54,6 +47,16 @@ public class AboutActivity extends AppCompatActivity {
 
     private void initData() {
         setVersion();
+    }
+
+    private void rotateLogo(){
+        // Rotate the logo on click
+        float currentRotation = imgLogo.getRotation();
+        final RotateAnimation rotateAnim = new RotateAnimation(
+                currentRotation, (currentRotation + 360), imgLogo.getWidth()/2, imgLogo.getHeight()/2);
+        rotateAnim.setDuration(1000); // Use 0 ms to rotate instantly
+        rotateAnim.setFillAfter(true); // Must be true or the animation will reset
+        imgLogo.startAnimation(rotateAnim);
     }
 
     private void setVersion() {
