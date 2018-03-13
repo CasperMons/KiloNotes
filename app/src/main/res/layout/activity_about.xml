@@ -1,58 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
     android:gravity="center"
-    android:orientation="vertical"
     tools:context="com.example.caspe.kilonotes.activities.AboutActivity">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/title_activity_about"
+            android:textColor="@color/title_def"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="@string/txt_version"
+            android:textColor="@color/txt_def"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/title_activity_about"
+            android:scaleType="centerInside"
+            android:src="@drawable/kilo_note_logo_transparent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/txt_developed_by"
+            android:textColor="@color/txt_def"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/txt_check_updates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+            android:text="@string/btn_check_updates"
+            android:textAllCaps="false"
+            android:textColor="@color/txt_def"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/title_activity_about"
-        android:textColor="@color/title_def"
-        android:textSize="25sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/txt_version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:text="@string/txt_version"
-        android:textColor="@color/txt_def"
-        android:textSize="15sp" />
-
-    <ImageView
-        android:id="@+id/img_logo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        android:contentDescription="@string/title_activity_about"
-        android:scaleType="centerInside"
-        android:src="@drawable/kilo_note_logo_transparent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/txt_developed_by"
-        android:textColor="@color/txt_def"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/txt_check_updates"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:padding="5dp"
-        android:text="@string/btn_check_updates"
-        android:textAllCaps="false"
-        android:textColor="@color/txt_def"
-        android:textSize="18sp"
-        android:textStyle="italic" />
-
-</LinearLayout>
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible"/>
+</RelativeLayout>

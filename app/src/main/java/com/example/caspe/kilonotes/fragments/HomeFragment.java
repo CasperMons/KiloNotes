@@ -29,8 +29,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Date;
-
 public class HomeFragment extends Fragment {
     // Define Layout elements
     TextView drivenDistance;
@@ -221,7 +219,7 @@ public class HomeFragment extends Fragment {
                 }
             });
         } else {
-            new AlertDialog.Builder(getContext()).setTitle(R.string.alert_title_nickname_error)
+            new AlertDialog.Builder(getContext()).setTitle(R.string.alert_title_general_error)
                     .setMessage(R.string.alert_message_nickname_error).show();
         }
     }

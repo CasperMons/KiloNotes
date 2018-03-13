@@ -141,7 +141,7 @@ public class RegisterActivity extends AppCompatActivity {
                     });
 
         } else {
-            alertDialog.setTitle(R.string.alert_title_reg_fail)
+            alertDialog.setTitle(R.string.alert_title_general_error)
                     .setMessage(R.string.alert_message_reg_fail)
                     .setIcon(R.drawable.kilo_note_logo_red);
         }
