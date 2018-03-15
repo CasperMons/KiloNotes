@@ -120,6 +120,6 @@ public class LoginActivity extends AppCompatActivity {
                         System.exit(0);
                     }
                 })
-                .setNegativeButton(R.string.alert_confirm_cancel, null).show();
+                .setNegativeButton(R.string.alert_confirm_stay, null).show();
     }
 }

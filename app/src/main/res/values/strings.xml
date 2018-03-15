@@ -28,6 +28,7 @@
     <string name="txt_unregistered">N/A</string>
     <string name="txt_version">Versie: </string>
     <string name="txt_developed_by">Ontwikkeld door: Casper Mons</string>
+    <string name="download_update">Download KiloNotes update</string>
     
     <!-- Checkbox texts -->
     <string name="checkbox_payed">betaald: </string>
@@ -64,7 +65,9 @@
     <string name="alert_title_ask_save">Opslaan?</string>
     <string name="alert_message_ask_save">Weet u zeker dat u deze rit wilt opslaan?</string>
     <string name="alert_confirm_yes">Ja</string>
-    <string name="alert_confirm_cancel">Blijven</string>
+    <string name="alert_confirm_stay">Blijven</string>
+    <string name="alert_confirm_cancel">Annuleren</string>
+
     <string name="alert_title_ask_leave">KiloNotes sluiten</string>
     <string name="alert_message_ask_leave">Weet u zeker dat u de applicatie wilt verlaten?</string>
     <string name="alert_title_pass_too_short">Wachtwoord is te kort</string>
@@ -90,7 +93,7 @@
     <string name="alert_message_claim_failed">Kon rit niet opslaan onder uw naam, probeer het later nog eens.</string>
     <string name="alert_message_failed_check_updates">Er kon niet worden gecontroleerd op updates. Probeer het later opnieuw.</string>
     <string name="alert_title_update_available">Update beschikbaar!</string>
-    <string name="alert_message_update_available">http://google.nl/</string>
+    <string name="alert_message_update_available">Druk op OK de update te downloaden</string>
     <string name="alert_title_no_update">Geen updates beschikbaar!</string>
     <string name="alert_message_no_update">KiloNotes is up to date.</string>
 

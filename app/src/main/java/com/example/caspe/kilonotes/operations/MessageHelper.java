@@ -11,7 +11,6 @@ import com.google.firebase.messaging.RemoteMessage;
 public class MessageHelper extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-
         Log.d("MESSAGE: ", remoteMessage.getData()  .toString());
     }
 }
