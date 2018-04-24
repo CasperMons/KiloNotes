@@ -29,7 +29,7 @@
     <string name="txt_version">Versie: </string>
     <string name="txt_developed_by">Ontwikkeld door: Casper Mons</string>
     <string name="download_update">Download KiloNotes update</string>
-    
+
     <!-- Checkbox texts -->
     <string name="checkbox_payed">betaald: </string>
     <string name="checkbox_unregistered"> Niet geregistreerd</string>
@@ -96,6 +96,8 @@
     <string name="alert_message_update_available">Druk op OK de update te downloaden</string>
     <string name="alert_title_no_update">Geen updates beschikbaar!</string>
     <string name="alert_message_no_update">KiloNotes is up to date.</string>
+    <string name="alert_title_download_complete">Downloaden voltooid</string>
+    <string name="alert_message_download_complete">De nieuwe versie is opgeslagen in downloads. Ga naar downloads om de app te updaten.</string>
 
     <!-- Toasts -->
     <string name="toast_logout">Uitloggen...</string>

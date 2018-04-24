@@ -157,12 +157,20 @@ public class AboutActivity extends AppCompatActivity {
                 downloadUrl = snapshot.getValue(String.class);
                 if (!downloadUrl.equals("")) {
                     downloadAndInstallApk(downloadUrl);
+                }else{
+                    new AlertDialog.Builder(AboutActivity.this)
+                            .setTitle(R.string.alert_title_general_error)
+                            .setMessage(R.string.alert_message_fail)
+                            .setIcon(R.drawable.kilo_note_logo_red).show();
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // TODO: add error alert
+                new AlertDialog.Builder(AboutActivity.this)
+                        .setTitle(R.string.alert_title_general_error)
+                        .setMessage(R.string.alert_message_fail)
+                        .setIcon(R.drawable.kilo_note_logo_red).show();
             }
         });
     }
@@ -201,16 +209,11 @@ public class AboutActivity extends AppCompatActivity {
             BroadcastReceiver onComplete = new BroadcastReceiver() {
                 public void onReceive(Context context, Intent intent) {
                     try {
-                        // TODO: fix permission to use URI to install the downloaded apk
-                        File APK = new File(destination + DataHelper.APP_APK_NAME);
-                        Intent install = new Intent(Intent.ACTION_VIEW);
-                        install.setDataAndType(uri,"application/vnd.android.package-archive");
-                        install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        startActivity(install);
+                        new AlertDialog.Builder(AboutActivity.this)
+                                .setTitle(R.string.alert_title_download_complete)
+                                .setMessage(R.string.alert_message_download_complete)
+                                .setIcon(R.drawable.kilo_note_logo_green).show();
 
-                        unregisterReceiver(this);
-                        finish();
                     } catch (Exception ex) {
                         Log.e("BROADCASTRECEIVER", ex.getMessage());
                     }
