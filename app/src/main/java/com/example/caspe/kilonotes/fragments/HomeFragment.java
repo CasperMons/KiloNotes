@@ -145,7 +145,7 @@ public class HomeFragment extends Fragment {
         drivenDistance = (TextView) view.findViewById(R.id.driven_km_txt);
         startDistance = (EditText) view.findViewById(R.id.edit_start_dist);
         endDistance = (EditText) view.findViewById(R.id.edit_end_dist);
-        checkBoxUnregistered = (CheckBox)view.findViewById(R.id.checkbox_unregistered_ride);
+        checkBoxUnregistered = (CheckBox) view.findViewById(R.id.checkbox_unregistered_ride);
         saveBtn = (Button) view.findViewById(R.id.save_btn);
         progressBar = (ProgressBar) view.findViewById(R.id.save_progress);
         swipeRefreshLastRide = (SwipeRefreshLayout) view.findViewById(R.id.refresh_last_ride);
@@ -183,10 +183,10 @@ public class HomeFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         Ride newRide = new Ride();
 
-        if(checkBoxUnregistered.isChecked()){
+        if (checkBoxUnregistered.isChecked()) {
             newRide.userName = Ride.UNREGISTERED;
             newRide.userId = currentUser.getUid();
-        }else{
+        } else {
             newRide.userName = currentUser.getDisplayName();
             newRide.userId = currentUser.getUid();
         }
@@ -227,11 +227,12 @@ public class HomeFragment extends Fragment {
     private void clearFields() {
         endDistance.setText("");
         startDistance.setText("");
+        checkBoxUnregistered.setChecked(false);
     }
 
     public void setLastRide() {
 
-        DatabaseReference ref = fbDatabase.getReference("Rides" );
+        DatabaseReference ref = fbDatabase.getReference("Rides");
         Query lastRecord = ref.limitToLast(1);
         lastRecord.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
