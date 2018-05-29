@@ -14,20 +14,32 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.caspe.kilonotes.R;
+import com.example.caspe.kilonotes.model.CustomUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    final FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
+
+    FirebaseUser currentUser;
+
     EditText editEmail;
     EditText editPassword;
     Button loginBtn;
     Button newUsrBtn;
     ProgressBar loginProgress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +94,8 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Log.e("FIREBASEAUTH", "signInWithEmail:success");
                                 Toast.makeText(LoginActivity.this, R.string.toast_auth_success, Toast.LENGTH_LONG).show();
-                                loginProgress.setVisibility(View.INVISIBLE);
-                                startMainActivity();
+                                currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                                checkCustomUser();
                             } else {
                                 Log.e("FIREBASEAUTH", "signInWithEmail:failure");
                                 loginProgress.setVisibility(View.INVISIBLE);
@@ -94,6 +106,54 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private void checkCustomUser() {
+        final CustomUser newCustomUser = new CustomUser();
+        newCustomUser.userName = currentUser.getDisplayName();
+        newCustomUser.id = currentUser.getUid();
+
+        DatabaseReference ref = fbDatabase.getReference("Users");
+        Query query = ref.orderByChild("userName").equalTo(newCustomUser.userName);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                CustomUser customUserFromFb = null;
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    customUserFromFb = ds.getValue(CustomUser.class);
+                }
+                if (customUserFromFb == null) {
+                    createNewCustomUser(newCustomUser);
+                } else {
+                    loginProgress.setVisibility(View.INVISIBLE);
+                    startMainActivity();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                loginProgress.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    private void createNewCustomUser(CustomUser newCustomUser) {
+        DatabaseReference ref = fbDatabase.getReference("Users");
+        ref.push().setValue(newCustomUser, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError error, DatabaseReference databaseReference) {
+                loginProgress.setVisibility(View.INVISIBLE);
+                if (error == null) {
+                    startMainActivity();
+                } else {
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setIcon(R.drawable.kilo_note_logo_red)
+                            .setTitle(R.string.alert_title_general_error)
+                            .setMessage(R.string.alert_message_fail).show();
+                }
+            }
+        });
+
+    }
+
     private void startRegisterActivity() {
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
@@ -102,6 +162,7 @@ public class LoginActivity extends AppCompatActivity {
     private void startMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
