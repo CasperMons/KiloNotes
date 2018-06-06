@@ -6,72 +6,73 @@
     android:padding="5dp"
     android:weightSum="3">
 
-<LinearLayout
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/item_month_year"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Month/year"
-        android:textColor="@color/title_def"
-        android:textSize="20sp" />
-
-    <TextView
-        android:layout_marginRight="10dp"
-        android:id="@+id/item_total_km"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/txt_def"
-        android:text="totalkm"
-        android:textSize="15sp"
-        />
-
-</LinearLayout>
-
-
-    <TextView
-        android:layout_toRightOf="@+id/item_total_km"
-        android:id="@+id/item_price"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_month_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Month/year"
+            android:textColor="@color/title_def"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/item_total_km"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginRight="10dp"
+            android:text="totalkm"
+            android:textColor="@color/txt_def"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/item_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_weight="1"
         android:gravity="center_horizontal"
         android:text="$$$"
         android:textColor="@color/title_def"
         android:textSize="20sp" />
 
 
-<RelativeLayout
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:layout_gravity="center_vertical">
-
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/item_check_payed"
-        android:layout_toStartOf="@+id/item_check_payed"
-        android:layout_centerVertical="true"
-        android:text="@string/checkbox_payed"
-        android:textColor="@color/txt_def"
-        android:textSize="15sp"/>
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1">
 
-    <CheckBox
-        android:layout_centerVertical="true"
-        android:id="@+id/item_check_payed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:checked="false" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/item_check_payed"
+            android:layout_toStartOf="@+id/item_check_payed"
+            android:text="@string/checkbox_payed"
+            android:textColor="@color/txt_def"
+            android:textSize="15sp" />
 
-</RelativeLayout>
+        <CheckBox
+            android:id="@+id/item_check_payed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:buttonTint="@color/checkbox_tint"
+            android:checked="false" />
+
+    </RelativeLayout>
 
 
 </LinearLayout>

@@ -6,7 +6,10 @@ package com.example.caspe.kilonotes.model;
 
 public class Payment {
     public double price;
-    public long totalKM;
+    public long totalDistance;
     public String userId;
-    public long timestamp;
+    public String userName;
+    public int month;
+    public int year;
+    public boolean isPayed;
 }
