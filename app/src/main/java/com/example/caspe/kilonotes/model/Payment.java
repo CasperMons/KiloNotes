@@ -1,5 +1,9 @@
 package com.example.caspe.kilonotes.model;
 
+import android.support.annotation.NonNull;
+
+import java.util.Comparator;
+
 /**
  * Created by caspe on 13-2-2018.
  */

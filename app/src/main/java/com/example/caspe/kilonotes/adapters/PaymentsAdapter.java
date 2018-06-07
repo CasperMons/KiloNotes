@@ -1,5 +1,6 @@
 package com.example.caspe.kilonotes.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.caspe.kilonotes.R;
@@ -46,7 +48,8 @@ public class PaymentsAdapter extends ArrayAdapter<Payment> {
             TextView txtMonthYear = (TextView) convertView.findViewById(R.id.item_month_year);
             TextView txtTotalDistance = (TextView) convertView.findViewById(R.id.item_total_km);
             TextView txtPrice = (TextView) convertView.findViewById(R.id.item_price);
-            CheckBox cbIsPayed = (CheckBox) convertView.findViewById(R.id.item_check_payed);
+            RelativeLayout containerIsPayed = (RelativeLayout) convertView.findViewById(R.id.container_ispayed);
+            final CheckBox cbIsPayed = (CheckBox) convertView.findViewById(R.id.item_check_payed);
 
             txtMonthYear.setText(convertMonthYearToDateString(payment.year, payment.month));
             txtTotalDistance.setText(Long.toString(payment.totalDistance) + " Km");
@@ -57,10 +60,22 @@ public class PaymentsAdapter extends ArrayAdapter<Payment> {
                 cbIsPayed.setEnabled(false);
             }
 
+            containerIsPayed.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    toggleCheckbox(cbIsPayed);
+                }
+            });
+
             cbIsPayed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    // TODO: make checked action. If checked to true, confirmation and update record
+                    new AlertDialog.Builder(getContext())
+                            .setTitle(R.string.alert_title_confirm_make_payment)
+                            .setMessage(R.string.alert_message_confirm_make_payment)
+                            .setIcon(R.drawable.kilo_note_logo)
+                            .show();
+                    //TODO: set positive and negative button and action
                 }
             });
 
@@ -71,5 +86,13 @@ public class PaymentsAdapter extends ArrayAdapter<Payment> {
     private String convertMonthYearToDateString(int year, int month) {
         Calendar monthYear = new GregorianCalendar(year, month - 1, 1);
         return sdf.format(monthYear.getTime());
+    }
+
+    private void toggleCheckbox(CheckBox checkBox){
+        if(!checkBox.isChecked()){
+            checkBox.setChecked(true);
+        }else if(checkBox.isEnabled()){
+            checkBox.setChecked(false);
+        }
     }
 }
