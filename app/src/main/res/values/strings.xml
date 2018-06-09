@@ -100,6 +100,9 @@
     <string name="alert_message_download_complete">De nieuwe versie is opgeslagen in downloads. Ga naar downloads om de app te updaten.</string>
     <string name="alert_title_confirm_make_payment">Betaling voltooien</string>
     <string name="alert_message_confirm_make_payment">Wilt u deze betaling opslaan als voltooid?</string>
+    <string name="alert_title_finish_payment">Betaling voltooien</string>
+    <string name="alert_message_finish_payment_fail">Er is iets misgegaan met het updaten van de betaling. Probeer het later nog eens</string>
+    <string name="alert_message_finish_payment_success">Betaling is opgeslagen als voltooid!</string>
 
     <!-- Toasts -->
     <string name="toast_logout">Uitloggen...</string>
@@ -108,7 +111,8 @@
     <string name="toast_auth_success">Ingelogd!</string>
     <string name="toast_refresh_history">Geschiedenis ophalen...</string>
     <string name="toast_refresh_last_ride">Eindstand van de laatste rit ophalen</string>
-
+    <string name="toast_error">Er is iets misgegaan, probeer het later nog eens</string>
+    <string name="toast_could_not_update">Kon de rekening niet updaten, probeer het later nog eens</string>
 
     <!-- List Texts -->
     <string name="list_until"> tot </string>
